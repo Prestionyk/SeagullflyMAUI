@@ -8,7 +8,7 @@ assignees: Prestionyk
 ---
 
 # Description:
-A clear and concise description of what the bug is.
+A clear and concise description of what will be added.
 
 # Acceptance Criteria:
 - [ ] AC1
