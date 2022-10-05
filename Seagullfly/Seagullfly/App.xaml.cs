@@ -1,8 +1,6 @@
-﻿using Seagullfly.Services;
-using Seagullfly.Views;
-using System;
+﻿using Seagullfly.Interfaces;
+using Seagullfly.Services;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Seagullfly
 {
@@ -13,7 +11,7 @@ namespace Seagullfly
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<IEmailService, EmailService>();
             MainPage = new AppShell();
         }
 

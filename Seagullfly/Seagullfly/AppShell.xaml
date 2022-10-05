@@ -70,10 +70,13 @@
         </ResourceDictionary>
     </Shell.Resources>
     <FlyoutItem Title="Main Page" Icon="icon_about.png">
-        <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:SueagullflyPage}" />
+        <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:SeagullflyPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Counter" Icon="icon_about.png">
         <ShellContent Route="Counter" ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Feadback" Icon="icon_about.png">
+        <ShellContent Route="Feadback" ContentTemplate="{DataTemplate local:FeadbackPage}" />
     </FlyoutItem>
 
 </Shell>

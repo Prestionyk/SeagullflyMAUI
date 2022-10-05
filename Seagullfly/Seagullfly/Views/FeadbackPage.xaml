@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:Seagullfly.ViewModels"
+             x:Class="Seagullfly.Views.FeadbackPage"
+             x:DataType="viewmodels:FeadbackViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:FeadbackViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid  RowDefinitions="*,Auto">
+                <Label
+					FontFamily="Inter"
+					HorizontalTextAlignment="Center"
+					FontSize="20"
+					TextColor="#000000"
+					Text="Feadback"
+                    Grid.Row="0"
+				 />
+                <Picker
+                    Margin="10,0,10,0"
+                    Grid.Row="2"
+                    Title="Topic"
+                    VerticalTextAlignment="End"
+                    SelectedIndex="{Binding SelectedTopicIndex}"
+                    ItemsSource="{Binding Topics}">
+                </Picker>
+                <Entry
+                    Text="{Binding Email}"
+                    Margin="10,0,10,0"
+                    Placeholder="Email"
+                    PlaceholderColor="Black"
+                    VerticalTextAlignment="End"
+                    Grid.Row="3"
+                    />
+                <Entry
+                    Text="{Binding Title}"
+                    Margin="10,0,10,0"
+                    Placeholder="Title"
+                    PlaceholderColor="Black"
+                    VerticalTextAlignment="End"
+                    Grid.Row="4"
+                    />
+                <Entry
+                    Text="{Binding Description}"
+                    Margin="10,0,10,0"
+                    VerticalTextAlignment="End"
+                    Placeholder="Description"
+                    PlaceholderColor="Black"
+					FontFamily="Inter"
+                    Grid.Row="5"
+				 />
+                <Button
+                    Margin="20"
+					FontFamily="Inter"
+					FontSize="12"
+					TextColor="#000000"
+                    Text="Send Email"
+                    Grid.Row="7"
+                    Command="{Binding TrySendEmailCommand}"
+				 />
+            </Grid>
+        </ScrollView>
+
+	</ContentPage.Content>
+</ContentPage>

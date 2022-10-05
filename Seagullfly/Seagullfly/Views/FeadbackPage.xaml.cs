@@ -1,14 +1,15 @@
-﻿using Xamarin.Forms;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Seagullfly.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SueagullflyPage : ContentPage
+    public partial class FeadbackPage : ContentPage
     {
-        public SueagullflyPage()
+        public FeadbackPage()
         {
             InitializeComponent();
         }
     }
 }
+	
