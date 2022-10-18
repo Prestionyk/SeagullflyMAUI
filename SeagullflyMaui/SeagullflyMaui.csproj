@@ -53,4 +53,22 @@
 	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="View\ContactPage.xaml.cs">
+	    <DependentUpon>ContactPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\SeagullflyPage.xaml.cs">
+	    <DependentUpon>SeagullflyPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\ContactPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\SeagullflyPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

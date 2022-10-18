@@ -3,12 +3,20 @@
     x:Class="SeagullflyMaui.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:SeagullflyMaui"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:local="clr-namespace:SeagullflyMaui.View"
+    Shell.FlyoutBehavior="Flyout">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    <ShellContent
+        Title="SeagullflyPage"
+        ContentTemplate="{DataTemplate local:SeagullflyPage}"
+        Route="SeagullflyPage" />
+    <ShellContent
+        Title="Contact"
+        ContentTemplate="{DataTemplate local:ContactPage}"
+        Route="ContactPage" />
 
 </Shell>
