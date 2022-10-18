@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seagullfly.Android", "Seagullfly\Seagullfly.Android\Seagullfly.Android.csproj", "{2EBF0864-FFC0-479E-B40C-36043EA0ED0E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seagullfly", "Seagullfly\Seagullfly\Seagullfly.csproj", "{33778447-A3EA-4099-9E7A-09B4EEAE82AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeagullflyMaui", "SeagullflyMaui\SeagullflyMaui.csproj", "{103D0222-D4D4-4382-A28C-384E82C7DA17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,18 +11,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2EBF0864-FFC0-479E-B40C-36043EA0ED0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2EBF0864-FFC0-479E-B40C-36043EA0ED0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2EBF0864-FFC0-479E-B40C-36043EA0ED0E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{2EBF0864-FFC0-479E-B40C-36043EA0ED0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2EBF0864-FFC0-479E-B40C-36043EA0ED0E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2EBF0864-FFC0-479E-B40C-36043EA0ED0E}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{33778447-A3EA-4099-9E7A-09B4EEAE82AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33778447-A3EA-4099-9E7A-09B4EEAE82AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33778447-A3EA-4099-9E7A-09B4EEAE82AA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{33778447-A3EA-4099-9E7A-09B4EEAE82AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33778447-A3EA-4099-9E7A-09B4EEAE82AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33778447-A3EA-4099-9E7A-09B4EEAE82AA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{103D0222-D4D4-4382-A28C-384E82C7DA17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{103D0222-D4D4-4382-A28C-384E82C7DA17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{103D0222-D4D4-4382-A28C-384E82C7DA17}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{103D0222-D4D4-4382-A28C-384E82C7DA17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{103D0222-D4D4-4382-A28C-384E82C7DA17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{103D0222-D4D4-4382-A28C-384E82C7DA17}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
