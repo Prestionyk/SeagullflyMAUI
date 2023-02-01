@@ -28,6 +28,12 @@ public static class MauiProgram
         builder.Services.AddSingleton<ContactPageViewModel>();
         builder.Services.AddSingleton<ContactPage>();
 
+        builder.Services.AddSingleton<FlightsResultsViewModel>();
+        builder.Services.AddSingleton<FlightsResultsPage>();
+
+        builder.Services.AddSingleton<FlightDetailsViewModel>();
+        builder.Services.AddSingleton<FlightDetailsPage>();
+
         return builder.Build();
     }
 }
