@@ -57,8 +57,11 @@
 	  <Compile Update="View\ContactPage.xaml.cs">
 	    <DependentUpon>ContactPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\SeagullflyPage.xaml.cs">
-	    <DependentUpon>SeagullflyPage.xaml</DependentUpon>
+	  <Compile Update="View\HomePage.xaml.cs">
+	    <DependentUpon>HomePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\SearchPage.xaml.cs">
+	    <DependentUpon>SearchPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
@@ -66,7 +69,13 @@
 	  <MauiXaml Update="View\ContactPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\SeagullflyPage.xaml">
+	  <MauiXaml Update="View\FlightDetailsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\FlightsResultsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\SearchPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

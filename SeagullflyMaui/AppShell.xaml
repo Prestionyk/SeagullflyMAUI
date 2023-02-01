@@ -8,11 +8,11 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate local:HomePage}"
         Route="MainPage" />
     <ShellContent
         Title="SeagullflyPage"
-        ContentTemplate="{DataTemplate local:SeagullflyPage}"
+        ContentTemplate="{DataTemplate local:SearchPage}"
         Route="SeagullflyPage" />
     <ShellContent
         Title="Contact"

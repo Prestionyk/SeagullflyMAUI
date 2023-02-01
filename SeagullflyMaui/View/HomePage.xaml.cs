@@ -2,11 +2,11 @@
 
 namespace SeagullflyMaui.View;
 
-public partial class MainPage : ContentPage
+public partial class HomePage : ContentPage
 {
     int count = 0;
 
-    public MainPage(MainPageViewModel viewModel)
+    public HomePage(HomePageViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
