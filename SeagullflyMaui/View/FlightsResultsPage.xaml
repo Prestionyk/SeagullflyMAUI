@@ -10,5 +10,8 @@
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <Button
+            Text="Show details"
+            Command="{Binding FlightDetailsCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

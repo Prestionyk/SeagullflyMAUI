@@ -14,7 +14,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                 FontSize="Large"/>
-            <Button Command="{Binding ScrapDataCommand}" x:Name="ButtonClick" Grid.Row="1" Text="Scrap me!" />
+            <Button Command="{Binding SearchFlightsCommand}" x:Name="ButtonClick" Grid.Row="1" Text="Scrap me!" />
         </Grid>
     </ContentPage.Content>
 
