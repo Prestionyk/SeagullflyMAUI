@@ -23,6 +23,6 @@ public partial class SeagullflyPageViewModel : BaseViewModel
         //var html = await requester.GetHtmlFromUrl("https://www.esky.pl/flights/select/roundtrip/ap/wro/ap/waw?departureDate=2022-09-26&returnDate=2022-09-27&pa=1&py=0&pc=0&pi=0&sc=economy");
         //Data = html;
         //ButtonName = "Data scrapped!";
-        data = "Scraped!";
+        Data = "Scraped!";
     }
 }
