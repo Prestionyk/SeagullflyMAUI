@@ -2,9 +2,9 @@
 
 namespace SeagullflyMaui.View;
 
-public partial class SeagullflyPage : ContentPage
+public partial class SearchPage : ContentPage
 {
-    public SeagullflyPage(SeagullflyPageViewModel viewModel)
+    public SearchPage(SearchPageViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

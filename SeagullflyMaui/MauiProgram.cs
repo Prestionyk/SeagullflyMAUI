@@ -19,11 +19,11 @@ public static class MauiProgram
             });
         builder.Services.AddSingleton<IEmailService, EmailService>();
 
-        builder.Services.AddSingleton<MainPageViewModel>();
-        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<HomePageViewModel>();
+        builder.Services.AddSingleton<HomePage>();
 
-        builder.Services.AddSingleton<SeagullflyPageViewModel>();
-        builder.Services.AddSingleton<SeagullflyPage>();
+        builder.Services.AddSingleton<SearchPageViewModel>();
+        builder.Services.AddSingleton<SearchPage>();
 
         builder.Services.AddSingleton<ContactPageViewModel>();
         builder.Services.AddSingleton<ContactPage>();

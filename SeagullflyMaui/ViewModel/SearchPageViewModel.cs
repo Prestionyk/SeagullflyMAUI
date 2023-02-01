@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 
 namespace SeagullflyMaui.ViewModel;
-public partial class SeagullflyPageViewModel : BaseViewModel
+public partial class SearchPageViewModel : BaseViewModel
 {
 	[ObservableProperty]
 	string data;
@@ -10,7 +10,7 @@ public partial class SeagullflyPageViewModel : BaseViewModel
     [ObservableProperty]
     string buttonName;
 
-    public SeagullflyPageViewModel()
+    public SearchPageViewModel()
 	{
 		title = "Scraping page!";
         buttonName = "Here will be scraped content!";
