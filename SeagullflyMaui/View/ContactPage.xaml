@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:SeagullflyMaui.ViewModel"
+             x:Class="SeagullflyMaui.View.ContactPage"
+             x:DataType="viewmodel:ContactPageViewModel"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
+        <VerticalStackLayout>
+            <Picker
+                    Margin="10,0,10,0"
+                    Grid.Row="0"
+                    Title="Topic"
+                    VerticalTextAlignment="End"
+                    SelectedIndex="{Binding SelectedTopicIndex}"
+                    ItemsSource="{Binding Topics}">
+            </Picker>
+            <Entry Text="{Binding Email}"
+                    Margin="10,0,10,0"
+                    Placeholder="Email"
+                    PlaceholderColor="Black"
+                    VerticalTextAlignment="End"
+                    Grid.Row="2"/>
+            <Entry
+                    Text="{Binding Title}"
+                    Margin="10,0,10,0"
+                    Placeholder="Title"
+                    PlaceholderColor="Black"
+                    VerticalTextAlignment="End"
+                    Grid.Row="4"
+                    />
+            <Entry
+                    Text="{Binding Description}"
+                    Margin="10,0,10,0"
+                    VerticalTextAlignment="End"
+                    Placeholder="Description"
+                    PlaceholderColor="Black"
+					FontFamily="Inter"
+                    Grid.Row="5"
+				 />
+            <Button
+                    Margin="20"
+					FontFamily="Inter"
+					FontSize="12"
+					TextColor="#000000"
+                    Text="Send Email"
+                    Grid.Row="7"
+                    Command="{Binding SendEmailCommand}"
+				 />
+        </VerticalStackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
