@@ -7,7 +7,7 @@ public partial class FlightsResultsViewModel : BaseViewModel
 
 	public FlightsResultsViewModel()
 	{
-        Title = "Flights page!";
+        Title = "SEAGULLFLY";
     }
 
     [RelayCommand]

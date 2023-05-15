@@ -7,47 +7,85 @@
              Title="{Binding Title}">
 
     <ContentPage.Content>
-        <VerticalStackLayout>
-            <Picker
-                    Margin="10,0,10,0"
-                    Grid.Row="0"
-                    Title="Topic"
+        <VerticalStackLayout
+            BackgroundColor="White"
+            Spacing="5">
+            <Label
+                Padding="25"
+                Text="Wyślij do nas wiadomość"
+                FontSize="Medium"
+                VerticalOptions="Start"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                TextColor="Black"
+                BackgroundColor="LightSlateGray"/>
+            <Frame
+                BorderColor="Transparent"
+                Padding="20,0,0,0"
+                CornerRadius="0"
+                Margin="10,30,10,0"
+                BackgroundColor="LightGray">
+                <Picker
+                    Title="Powód"
+                    TitleColor="Black"
+                    TextColor="Black"
                     VerticalTextAlignment="End"
                     SelectedIndex="{Binding SelectedTopicIndex}"
                     ItemsSource="{Binding Topics}">
-            </Picker>
-            <Entry Text="{Binding Email}"
-                    Margin="10,0,10,0"
+                </Picker>
+            </Frame>
+            <Frame
+                BorderColor="Transparent"
+                Padding="20,0,0,0"
+                CornerRadius="0"
+                Margin="10,0,10,0"
+                BackgroundColor="LightGray">
+                <Entry
+                    Text="{Binding Email}"
                     Placeholder="Email"
                     PlaceholderColor="Black"
-                    VerticalTextAlignment="End"
-                    Grid.Row="2"/>
-            <Entry
+                    TextColor="Black"
+                    BackgroundColor="LightGray"
+                    VerticalTextAlignment="End"/>
+            </Frame>
+            <Frame
+                BorderColor="Transparent"
+                Padding="20,0,0,0"
+                CornerRadius="0"
+                Margin="10,0,10,0"
+                BackgroundColor="LightGray">
+                <Entry
                     Text="{Binding Title}"
-                    Margin="10,0,10,0"
-                    Placeholder="Title"
+                    Placeholder="Tytuł"
                     PlaceholderColor="Black"
-                    VerticalTextAlignment="End"
-                    Grid.Row="4"
-                    />
-            <Entry
+                    TextColor="Black"
+                    BackgroundColor="LightGray"
+                    VerticalTextAlignment="End"/>
+            </Frame>
+            <Frame
+                BorderColor="Transparent"
+                Padding="20,0,0,0"
+                CornerRadius="0"
+                Margin="10,0,10,0"
+                BackgroundColor="LightGray">
+                <Entry
                     Text="{Binding Description}"
-                    Margin="10,0,10,0"
                     VerticalTextAlignment="End"
-                    Placeholder="Description"
+                    Placeholder="Opis"
                     PlaceholderColor="Black"
-					FontFamily="Inter"
-                    Grid.Row="5"
-				 />
+                    TextColor="Black"
+                    BackgroundColor="LightGray"
+				    FontFamily="Inter"/>
+            </Frame>
             <Button
-                    Margin="20"
-					FontFamily="Inter"
-					FontSize="12"
-					TextColor="#000000"
-                    Text="Send Email"
-                    Grid.Row="7"
-                    Command="{Binding SendEmailCommand}"
-				 />
+                CornerRadius="15"
+                Margin="50,20,50,0"
+				FontFamily="Inter"
+				FontSize="12"
+				TextColor="White"
+                BackgroundColor="DarkBlue"
+                Text="Wyślij"
+                Command="{Binding SendEmailCommand}" />
         </VerticalStackLayout>
     </ContentPage.Content>
 

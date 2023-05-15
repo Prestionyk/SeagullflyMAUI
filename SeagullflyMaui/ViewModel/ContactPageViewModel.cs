@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using SeagullflyMaui.Interfaces;
 using SeagullflyMaui.Model;
-using SeagullflyMaui.View;
 
 namespace SeagullflyMaui.ViewModel;
 public partial class ContactPageViewModel : BaseViewModel
@@ -23,12 +22,12 @@ public partial class ContactPageViewModel : BaseViewModel
 
     public ContactPageViewModel(IEmailService emailService)
 	{
-		title = "Contact page!";
+		Title = "KONTAKT";
         topics = new List<string>()
             {
-                "Question",
-                "Error",
-                "Review"
+                "Pytanie",
+                "Błąd",
+                "Ocena"
             };
 
         this.emailService = emailService;

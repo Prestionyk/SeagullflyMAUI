@@ -4,6 +4,6 @@ public partial class FlightDetailsViewModel :BaseViewModel
 
 	public FlightDetailsViewModel()
 	{
-		Title = "Details page!";
+		Title = "SEAGULLFLY";
 	}
 }

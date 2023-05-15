@@ -3,15 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:SeagullflyMaui.ViewModel"
              x:Class="SeagullflyMaui.View.FlightsResultsPage"
-             Title="FlightsResultsPage"
-             x:DataType="viewmodel:FlightsResultsViewModel">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button
+             x:DataType="viewmodel:FlightsResultsViewModel"
+             Title="{Binding Title}">
+    <ScrollView
+        BackgroundColor="Transparent">
+        <VerticalStackLayout>
+            <Label
+                Padding="25"
+                Text="Najlepsze wybrane loty"
+                FontSize="Medium"
+                VerticalOptions="Start"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                TextColor="Black"
+                BackgroundColor="LightSlateGray"/>
+            <Button
             Text="Show details"
             Command="{Binding FlightDetailsCommand}"/>
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
