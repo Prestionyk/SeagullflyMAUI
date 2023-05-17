@@ -51,6 +51,7 @@
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 	  <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+	  <PackageReference Include="Syncfusion.Maui.Inputs" Version="21.2.4" />
 	</ItemGroup>
 
 	<ItemGroup>

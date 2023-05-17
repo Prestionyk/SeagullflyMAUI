@@ -3,6 +3,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:SeagullflyMaui.ViewModel"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
              x:Class="SeagullflyMaui.View.SearchPage"
              x:DataType="viewmodel:SearchPageViewModel"
              Title="{Binding Title}">
@@ -48,36 +49,63 @@
                     TextColor="Black"
                     Text="Wyszukaj biletu:"/>
                 <Frame
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="10,0,0,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BorderColor="Transparent"
+                    BackgroundColor="LightGray">
+                    <Picker
+                        Title="Wczytaj zapisany filtr"
+                        TitleColor="Black"
+                        TextColor="Black"
+                        VerticalTextAlignment="End"
+                        SelectedIndex="{Binding SelectedFlightTypeIndex}"
+                        ItemsSource="{Binding FlightTypes}">
+                    </Picker>
+                </Frame>
+                <Frame
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    BorderColor="Transparent"
-                    Padding="20,0,0,0"
+                    Padding="10,0,0,0"
                     CornerRadius="0"
                     Margin="10,0,10,0"
+                    BorderColor="Transparent"
                     BackgroundColor="LightGray">
-                    <Entry
-                        Text="{Binding From}"
-                        Placeholder="Z:"
-                        PlaceholderColor="Black"
+                    <editors:SfAutocomplete
                         TextColor="Black"
-                        VerticalTextAlignment="End"/>
+                        PlaceholderColor="Black"
+                        Stroke="LightGray"
+                        BackgroundColor="Transparent"
+                        WidthRequest="100"
+                        HorizontalOptions="Start"
+                        Placeholder="Z:"
+                        DisplayMemberPath = "Name"
+                        TextMemberPath = "{Binding From}"
+                        ItemsSource="{Binding Airports}" />
                 </Frame>
                 <Frame
                     Grid.Row="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     BorderColor="Transparent"
-                    Padding="20,0,0,0"
+                    Padding="10,0,0,0"
                     CornerRadius="0"
                     Margin="10,0,10,0"
                     BackgroundColor="LightGray">
-                    <Entry
-                        Text="{Binding To}"
-                        Placeholder="Do:"
-                        PlaceholderColor="Black"
+                    <editors:SfAutocomplete
                         TextColor="Black"
-                        VerticalTextAlignment="End"/>
+                        PlaceholderColor="Black"
+                        Stroke="LightGray"
+                        BackgroundColor="Transparent"
+                        WidthRequest="100"
+                        HorizontalOptions="Start"
+                        Placeholder="Do:"
+                        DisplayMemberPath = "Name"
+                        TextMemberPath = "{Binding To}"
+                        ItemsSource="{Binding Airports}" />
                 </Frame>
                 <Frame
                     Grid.Row="3"

@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SeagullflyMaui.Model;
 using SeagullflyMaui.View;
 
 namespace SeagullflyMaui.ViewModel;
 public partial class SearchPageViewModel : BaseViewModel
 {
+    [ObservableProperty]
+    private List<Airport> airports;
     [ObservableProperty]
     private string from;
     [ObservableProperty]
@@ -29,6 +32,21 @@ public partial class SearchPageViewModel : BaseViewModel
     public SearchPageViewModel()
 	{
 		Title = "SEAGULLFLY";
+        Airports = new List<Airport>
+        {
+            new Airport
+            {
+                Ident = "EPWK",
+                Name = "Wrocław",
+                LocalCode = "EPWK",
+            },
+            new Airport
+            {
+                Ident = "EPWA",
+                Name = "Warszawa",
+                LocalCode = "EPWA",
+            }
+        };
 	}
 
     [RelayCommand]

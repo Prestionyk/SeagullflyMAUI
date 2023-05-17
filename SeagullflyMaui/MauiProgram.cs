@@ -2,6 +2,7 @@
 using SeagullflyMaui.Interfaces;
 using SeagullflyMaui.View;
 using SeagullflyMaui.ViewModel;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace SeagullflyMaui;
 
@@ -12,6 +13,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
+            .ConfigureSyncfusionCore()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
