@@ -1,11 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SeagullflyMaui.Interfaces;
 using SeagullflyMaui.Model;
 using SeagullflyMaui.View;
 
 namespace SeagullflyMaui.ViewModel;
 public partial class SearchPageViewModel : BaseViewModel
 {
+    private readonly IAiportsService _aiportsService;
+    private readonly Task initTask;
+
     [ObservableProperty]
     private List<Airport> airports;
     [ObservableProperty]
@@ -29,25 +33,24 @@ public partial class SearchPageViewModel : BaseViewModel
     [ObservableProperty]
     int infantCount = 0;
 
-    public SearchPageViewModel()
+    public SearchPageViewModel(IAiportsService aiportsService)
 	{
 		Title = "SEAGULLFLY";
-        Airports = new List<Airport>
+        _aiportsService = aiportsService;
+    }
+
+    [RelayCommand]
+    async Task InitAsync()
+    {
+        try
         {
-            new Airport
-            {
-                Ident = "EPWK",
-                Name = "Wrocław",
-                LocalCode = "EPWK",
-            },
-            new Airport
-            {
-                Ident = "EPWA",
-                Name = "Warszawa",
-                LocalCode = "EPWA",
-            }
-        };
-	}
+            Airports = await _aiportsService.GetAirports();
+        }
+        catch
+        {
+            Airports = new List<Airport>();
+        }
+    }
 
     [RelayCommand]
     async Task SearchFlights()

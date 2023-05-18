@@ -3,11 +3,16 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:SeagullflyMaui.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
              x:Class="SeagullflyMaui.View.SearchPage"
              x:DataType="viewmodel:SearchPageViewModel"
              Title="{Binding Title}">
-
+    
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding InitCommand}" />
+    </ContentPage.Behaviors>
     <ContentPage.Content>
         <VerticalStackLayout
             BackgroundColor="White"
@@ -69,7 +74,7 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Padding="10,0,0,0"
+                    Padding="10,0,10,0"
                     CornerRadius="0"
                     Margin="10,0,10,0"
                     BorderColor="Transparent"
@@ -79,11 +84,12 @@
                         PlaceholderColor="Black"
                         Stroke="LightGray"
                         BackgroundColor="Transparent"
-                        WidthRequest="100"
+                        MaxDropDownHeight="100"
                         HorizontalOptions="Start"
                         Placeholder="Z:"
-                        DisplayMemberPath = "Name"
-                        TextMemberPath = "{Binding From}"
+                        SelectionChanged="SfAutocomplete_SelectionChangedFrom"
+                        DisplayMemberPath = "FullName"
+                        TextMemberPath = "FullName"
                         ItemsSource="{Binding Airports}" />
                 </Frame>
                 <Frame
@@ -91,7 +97,7 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     BorderColor="Transparent"
-                    Padding="10,0,0,0"
+                    Padding="10,0,10,0"
                     CornerRadius="0"
                     Margin="10,0,10,0"
                     BackgroundColor="LightGray">
@@ -100,11 +106,12 @@
                         PlaceholderColor="Black"
                         Stroke="LightGray"
                         BackgroundColor="Transparent"
-                        WidthRequest="100"
+                        MaxDropDownHeight="100"
                         HorizontalOptions="Start"
                         Placeholder="Do:"
-                        DisplayMemberPath = "Name"
-                        TextMemberPath = "{Binding To}"
+                        SelectionChanged="SfAutocomplete_SelectionChangedTo"
+                        DisplayMemberPath = "FullName"
+                        TextMemberPath = "FullName"
                         ItemsSource="{Binding Airports}" />
                 </Frame>
                 <Frame

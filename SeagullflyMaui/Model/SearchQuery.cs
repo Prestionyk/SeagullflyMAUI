@@ -1,5 +1,7 @@
-﻿namespace SeagullflyMaui.Model;
-public class SearchingFilter
+﻿using SQLite;
+
+namespace SeagullflyMaui.Model;
+public class SearchQuery : BaseTable
 {
     public string From { get; set; }
     public string To { get; set; }

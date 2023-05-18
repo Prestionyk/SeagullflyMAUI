@@ -11,7 +11,7 @@ namespace Seagullfly.Services
 
         public async Task SendAsync(EmailRequest request)
         {
-            MailMessage mail = new MailMessage();
+            MailMessage mail = new();
             mail.To.Add(To);
             mail.From = new MailAddress(request.From);
             mail.Subject = GenerateSubject(request.Title, request.From);
