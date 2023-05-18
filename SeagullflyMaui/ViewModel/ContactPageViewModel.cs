@@ -16,6 +16,9 @@ public partial class ContactPageViewModel : BaseViewModel
 	string email;
 
     [ObservableProperty]
+    string emailTitle;
+
+    [ObservableProperty]
     string description;
 
     readonly IEmailService emailService;
@@ -38,10 +41,10 @@ public partial class ContactPageViewModel : BaseViewModel
     {
         var request = new EmailRequest()
         {
-            From = email,
-            Title = topics[SelectedTopicIndex],
-            Description = title,
-            Message = description
+            From = Email,
+            Title = Topics[SelectedTopicIndex],
+            Description = EmailTitle,
+            Message = Description
         };
 
         await emailService.SendAsync(request);

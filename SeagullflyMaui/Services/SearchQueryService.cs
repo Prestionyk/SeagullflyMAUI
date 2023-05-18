@@ -13,8 +13,19 @@ public class SearchQueryService : ISearchQueryService
 
     public List<SearchQuery> GetSavedQuerries()
     {
-        var qierries = _seagullflyDatabase.GetAll<SearchQuery>().ToList();
+        var qierries = new List<SearchQuery>()
+        {
+            new SearchQuery()
+            {
+                Name = "One"
+            }
+        };//_seagullflyDatabase.GetAll<SearchQuery>().ToList();
 
         return qierries;
+    }
+
+    public void SaveQuery(SearchQuery query)
+    {
+        //_seagullflyDatabase.Add(query);
     }
 }

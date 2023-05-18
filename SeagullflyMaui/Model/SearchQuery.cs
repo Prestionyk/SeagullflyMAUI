@@ -1,8 +1,7 @@
-﻿using SQLite;
-
-namespace SeagullflyMaui.Model;
+﻿namespace SeagullflyMaui.Model;
 public class SearchQuery : BaseTable
 {
+    public string Name { get; set; }
     public string From { get; set; }
     public string To { get; set; }
     public DateTime Departure { get; set; }
@@ -12,4 +11,9 @@ public class SearchQuery : BaseTable
     public int YouthCount { get; set; }
     public int ChildrenCount { get; set; }
     public int InfantCount { get; set; }
+
+    public override string ToString()
+    {
+        return Name;
+    }
 }

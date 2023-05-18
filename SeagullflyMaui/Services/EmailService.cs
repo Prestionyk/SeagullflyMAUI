@@ -13,8 +13,8 @@ namespace Seagullfly.Services
             MailMessage mail = new();
             mail.To.Add(Config.GetInstance().SupportEmailAddress);
             mail.From = new MailAddress(request.From);
-            mail.Subject = GenerateSubject(request.Title, request.From);
-            mail.Body = request.Message;
+            mail.Subject = GenerateSubject(request);
+            mail.Body = GenerateBody(request);
             mail.IsBodyHtml = true;
 
             SmtpClient smtp = new()
@@ -30,9 +30,14 @@ namespace Seagullfly.Services
             smtp.Dispose();
         }
 
-        string GenerateSubject(string subject, string from)
+        string GenerateSubject(EmailRequest request)
         {
-            return $"[{from}] [{subject}]";
+            return $"[{request.From}] [{request.Title}]";
+        }
+
+        string GenerateBody(EmailRequest request)
+        {
+            return $"{request.Description}\n{request.Message}";
         }
     }
 }

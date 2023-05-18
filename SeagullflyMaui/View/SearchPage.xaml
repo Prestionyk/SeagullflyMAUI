@@ -66,8 +66,8 @@
                         TitleColor="Black"
                         TextColor="Black"
                         VerticalTextAlignment="End"
-                        SelectedIndex="{Binding SelectedFlightTypeIndex}"
-                        ItemsSource="{Binding FlightTypes}">
+                        SelectedIndexChanged="QueryLoaded"
+                        ItemsSource="{Binding SavedQuerries}">
                     </Picker>
                 </Frame>
                 <Frame
@@ -126,6 +126,7 @@
                     <DatePicker
                         Date="{Binding Departure}"
                         MinimumDate="{x:Static sys:DateTime.Now}"
+                        PropertyChanged="QueryPropertiesChanged"
                         TextColor="Black" />
                 </Frame>
                 <Frame
@@ -140,6 +141,7 @@
                     <DatePicker
                         Date="{Binding Arrival}"
                         MinimumDate="{x:Static sys:DateTime.Now}"
+                        PropertyChanged="QueryPropertiesChanged"
                         TextColor="Black" />
                 </Frame>
                 <Frame
@@ -156,6 +158,7 @@
                         TitleColor="Black"
                         TextColor="Black"
                         VerticalTextAlignment="End"
+                        SelectedIndexChanged="QueryPropertiesChanged"
                         SelectedIndex="{Binding SelectedFlightTypeIndex}"
                         ItemsSource="{Binding FlightTypes}">
                     </Picker>
@@ -361,7 +364,8 @@
                     Margin="40,20,40,0"
                     BackgroundColor="Cyan"
                     TextColor="White"
-                    Command="{Binding SearchFlightsCommand}"
+                    IsEnabled="{Binding BtnSaveEnabled}"
+                    Command="{Binding SaveQuerryCommand}"
                     Text="Zapisz" />
             </Grid>
         </VerticalStackLayout>

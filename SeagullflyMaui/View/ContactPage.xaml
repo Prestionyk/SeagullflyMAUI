@@ -55,7 +55,7 @@
                 Margin="10,0,10,0"
                 BackgroundColor="LightGray">
                 <Entry
-                    Text="{Binding Title}"
+                    Text="{Binding EmailTitle}"
                     Placeholder="Tytuł"
                     PlaceholderColor="Black"
                     TextColor="Black"

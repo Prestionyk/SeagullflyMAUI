@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SeagullflyMaui.Model;
 
 namespace SeagullflyMaui.Interfaces;
 public interface ISearchQueryService
 {
+    List<SearchQuery> GetSavedQuerries();
+    void SaveQuery(SearchQuery query);
 }

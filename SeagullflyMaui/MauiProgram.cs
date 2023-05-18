@@ -50,6 +50,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IEmailService, EmailService>();
         builder.Services.AddSingleton<ISearchQueryService, SearchQueryService>();
         builder.Services.AddSingleton<IAiportsService, AiportsService>();
+        builder.Services.AddSingleton<IWeatherService, WeatherService>();
 
         return builder;
     }
