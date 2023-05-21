@@ -14,7 +14,7 @@ public class RandomData
     public static List<DayOffer> GetOffersOfTheDay()
     {
         List<DayOffer> offers = new();
-        var offerCount = new Random().Next(10);
+        var offerCount = new Random().Next(1,10);
 
         for (int i = 0; i < offerCount; i++)
             offers.Add(new DayOffer

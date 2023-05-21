@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SeagullflyMaui.DTOs;
 using SeagullflyMaui.Enums;
@@ -40,14 +41,16 @@ public partial class SearchPageViewModel : BaseViewModel
     bool queryLoaded = false;
     [ObservableProperty]
     bool btnSaveEnabled = true;
-
-    public int SelectedQueryId;
+    [ObservableProperty]
+    SearchQueryDto selectedQuery;
 
     public SearchPageViewModel(IAiportsService aiportsService, ISearchQueryService searchQueryService)
 	{
 		Title = "SEAGULLFLY";
         _aiportsService = aiportsService;
         _searchQueryService = searchQueryService;
+        Arrival = DateTime.Now;
+        Departure = DateTime.Now;
         try
         {
             FlightTypes = new()
@@ -70,8 +73,8 @@ public partial class SearchPageViewModel : BaseViewModel
         {
             if (Airports is null)
             {
-                SavedQuerries = await _searchQueryService.GetSavedQuerries();
                 Airports = await _aiportsService.GetAirports();
+                SavedQuerries = await _searchQueryService.GetSavedQuerries();
             }    
         }
         catch (Exception ex)
@@ -102,27 +105,49 @@ public partial class SearchPageViewModel : BaseViewModel
     [RelayCommand]
     async Task SaveQuerry()
     {
-        var name = await Application.Current.MainPage.DisplayPromptAsync("Zapisywanie", "Wprowadź nazwę", "Zapisz", "Anuluj", "Nazwa"); ;
+        if (From is null || To is null)
+        {
+            await Application.Current.MainPage.DisplayAlert("Uwaga", $"Uzupełnij wszystkie kryteria wyszukiwania", "Ok");
+            return;
+        }
+
+        var name = await Application.Current.MainPage.DisplayPromptAsync("Zapisywanie", "Wprowadź nazwę", "Zapisz", "Anuluj", "Nazwa");
+        if (name is null)
+            return;
+        if (SavedQuerries.Any(qu => qu.Name == name))
+        {
+            await Application.Current.MainPage.DisplayAlert("Uwaga", $"Ta nazwa jest już zajęta", "Ok");
+            return;
+        }
+
         var queryToSave = GetSearchQuery();
         queryToSave.Name = name;
 
         await _searchQueryService.SaveQuery(queryToSave);
+
+        await Application.Current.MainPage.DisplaySnackbar("Filtr zapisany");
+
+        SavedQuerries = await _searchQueryService.GetSavedQuerries();
     }
 
     [RelayCommand]
     async Task DeleteSavedQuery()
     {
-        await _searchQueryService.DeleteQuery(SelectedQueryId);
+        await _searchQueryService.DeleteQuery(SelectedQuery.Id);
+        SavedQuerries = await _searchQueryService.GetSavedQuerries();
+
+        await Application.Current.MainPage.DisplaySnackbar("Filtr usunięty");
     }
 
     [RelayCommand]
     void ChangeAdultCount(string change)
     {
-        var newValue = Math.Clamp(AdultCount += int.Parse(change), 0, 10);
+        var newValue = Math.Clamp(AdultCount + int.Parse(change), 0, 10);
         if (newValue != AdultCount)
         {
             QueryLoaded = false;
             BtnSaveEnabled = true;
+            SelectedQuery = null;
         }  
         AdultCount = newValue; 
     }
@@ -130,11 +155,12 @@ public partial class SearchPageViewModel : BaseViewModel
     [RelayCommand]
     void ChangeYouthCount(string change)
     {
-        var newValue = Math.Clamp(YouthCount += int.Parse(change), 0, 10);
+        var newValue = Math.Clamp(YouthCount + int.Parse(change), 0, 10);
         if (newValue != YouthCount)
         {
             QueryLoaded = false;
             BtnSaveEnabled = true;
+            SelectedQuery = null;
         }
         YouthCount = newValue;
     }
@@ -142,11 +168,12 @@ public partial class SearchPageViewModel : BaseViewModel
     [RelayCommand]
     void ChangeChildrenCount(string change)
     {
-        var newValue = Math.Clamp(ChildrenCount += int.Parse(change), 0, 10);
+        var newValue = Math.Clamp(ChildrenCount + int.Parse(change), 0, 10);
         if (newValue != ChildrenCount)
         {
             QueryLoaded = false;
             BtnSaveEnabled = true;
+            SelectedQuery = null;
         }
         ChildrenCount = newValue;
     }
@@ -154,11 +181,12 @@ public partial class SearchPageViewModel : BaseViewModel
     [RelayCommand]
     void ChangeInfantCount(string change)
     {
-        var newValue = Math.Clamp(InfantCount += int.Parse(change), 0, 10);
+        var newValue = Math.Clamp(InfantCount + int.Parse(change), 0, 10);
         if (newValue != InfantCount)
         {
             QueryLoaded = false;
             BtnSaveEnabled = true;
+            SelectedQuery = null;
         }
         InfantCount = newValue;
     }

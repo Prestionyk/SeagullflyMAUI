@@ -58,11 +58,13 @@
                     BorderColor="Transparent"
                     BackgroundColor="LightGray">
                     <Picker
+                        x:Name="QueryPicker"
                         Title="Wczytaj zapisany filtr"
                         TitleColor="Black"
                         TextColor="Black"
                         VerticalTextAlignment="End"
                         SelectedIndexChanged="QueryLoaded"
+                        SelectedItem="{Binding SelectedQuery}"
                         ItemsSource="{Binding SavedQuerries}">
                     </Picker>
                 </Frame>
@@ -367,8 +369,10 @@
             <Button
                 IsVisible="{Binding QueryLoaded}"
                 IsEnabled="{Binding QueryLoaded}"
-                Command="{Binding }"
+                Command="{Binding DeleteSavedQueryCommand}"
+                Margin="50,0,50,0"
                 TextColor="Red"
+                BackgroundColor="LightGrey"
                 Text="Usuń"/>
         </VerticalStackLayout>
     </ScrollView>
