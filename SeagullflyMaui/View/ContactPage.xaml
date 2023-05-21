@@ -6,7 +6,7 @@
              x:DataType="viewmodel:ContactPageViewModel"
              Title="{Binding Title}">
 
-    <ContentPage.Content>
+    <ScrollView>
         <VerticalStackLayout
             BackgroundColor="White"
             Spacing="5">
@@ -87,6 +87,5 @@
                 Text="Wyślij"
                 Command="{Binding SendEmailCommand}" />
         </VerticalStackLayout>
-    </ContentPage.Content>
-
+    </ScrollView>
 </ContentPage>

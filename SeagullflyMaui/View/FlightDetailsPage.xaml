@@ -52,6 +52,7 @@
                             </Grid.RowDefinitions>
                             <Label
                                 Margin="10"
+                                Padding="5"
                                 TextColor="Black"
                                 FontAttributes="Bold"
                                 Text="{Binding From}"/>
@@ -63,6 +64,7 @@
                                 Grid.Column="1"/>
                             <Label
                                 Margin="10"
+                                Padding="5"
                                 TextColor="Black"
                                 FontAttributes="Bold"
                                 Grid.Column="2"

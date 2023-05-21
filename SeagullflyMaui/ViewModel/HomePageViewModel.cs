@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using SeagullflyMaui.MockData;
 using SeagullflyMaui.Model;
 
 namespace SeagullflyMaui.ViewModel;
@@ -8,64 +9,11 @@ public partial class HomePageViewModel : BaseViewModel
 
     public HomePageViewModel()
 	{
-        OffersOfTheDay = new List<DayOffer>()
-        {
-            new DayOffer
-            {
-                Price = "10 PLN",
-                Description = "Tygodniowe all inclusive w 5* hotelu w Turcji od 1256 PLN",
-                Shortcut = "Turcja all inclusive z 5 miast"
-            },
-            new DayOffer
-            {
-                Price = "10 PLN",
-                Description = "Tygodniowe all inclusive w 5* hotelu w Turcji od 1256 PLN",
-                Shortcut = "Turcja all inclusive z 5 miast"
-            }
-            ,
-            new DayOffer
-            {
-                Price = "10 PLN",
-                Description = "Tygodniowe all inclusive w 5* hotelu w Turcji od 1256 PLN",
-                Shortcut = "Turcja all inclusive z 5 miast"
-            }
-            ,
-            new DayOffer
-            {
-                Price = "10 PLN",
-                Description = "Tygodniowe all inclusive w 5* hotelu w Turcji od 1256 PLN",
-                Shortcut = "Turcja all inclusive z 5 miast"
-            }
-            ,
-            new DayOffer
-            {
-                Price = "10 PLN",
-                Description = "Tygodniowe all inclusive w 5* hotelu w Turcji od 1256 PLN",
-                Shortcut = "Turcja all inclusive z 5 miast"
-            },
-            new DayOffer
-            {
-                Price = "10 PLN",
-                Description = "Tygodniowe all inclusive w 5* hotelu w Turcji od 1256 PLN",
-                Shortcut = "Turcja all inclusive z 5 miast"
-            },
-            new DayOffer
-            {
-                Price = "10 PLN",
-                Description = "Tygodniowe all inclusive w 5* hotelu w Turcji od 1256 PLN",
-                Shortcut = "Turcja all inclusive z 5 miast"
-            },
-            new DayOffer
-            {
-                Price = "10 PLN",
-                Description = "Tygodniowe all inclusive w 5* hotelu w Turcji od 1256 PLN",
-                Shortcut = "Turcja all inclusive z 5 miast"
-            }
-        };
+        OffersOfTheDay = RandomData.GetOffersOfTheDay();
 	}
 
     [RelayCommand]
-    public void GoToUrl(string url)
+    void GoToUrl(string url)
     {
         Browser.Default.OpenAsync(url, BrowserLaunchMode.SystemPreferred);
     }
