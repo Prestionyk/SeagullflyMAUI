@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
+using WebDriverManager;
 
 namespace MauiWebScraper;
 
@@ -8,13 +10,11 @@ public class Airports
 {
     public static void ScrapAirports()
     {
-        var files = Directory.GetFiles(FileSystem.Current.AppDataDirectory);
-        using var stream = FileSystem.OpenAppPackageFileAsync("chromedriver").Result;
-        using var reader = new StreamReader(stream);
-
+        new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
+        var chromeDriverService = ChromeDriverService.CreateDefaultService();
         var options = new ChromeOptions();
         options.AddArgument("--headless");
-        ChromeDriver driver = new("",options);
+        ChromeDriver driver = new(chromeDriverService, options);
         driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
         driver.Navigate().GoToUrl("https://www.esky.pl/flights/select/roundtrip/ap/wro/mp/mil?departureDate=2023-05-24&returnDate=2023-05-26&pa=1&py=0&pc=0&pi=0&sc=economy");
