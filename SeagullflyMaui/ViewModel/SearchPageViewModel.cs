@@ -5,6 +5,7 @@ using SeagullflyMaui.Enums;
 using SeagullflyMaui.Interfaces;
 using SeagullflyMaui.Model;
 using SeagullflyMaui.View;
+using SeagullflyMaui;
 
 namespace SeagullflyMaui.ViewModel;
 public partial class SearchPageViewModel : BaseViewModel
@@ -50,12 +51,11 @@ public partial class SearchPageViewModel : BaseViewModel
         {
             FlightTypes = new()
             {
-                FlightType.OneWay.ToString(),
-                FlightType.OneWayDirect.ToString(),
-                FlightType.TwoWays.ToString(),
-                FlightType.TwoWaysDirect.ToString()
+                FlightType.OneWay.ToPolishString(),
+                FlightType.OneWayDirect.ToPolishString(),
+                FlightType.TwoWays.ToPolishString(),
+                FlightType.TwoWaysDirect.ToPolishString()
             };
-                SavedQuerries = _searchQueryService.GetSavedQuerries();
         }
         catch
         {
@@ -68,23 +68,32 @@ public partial class SearchPageViewModel : BaseViewModel
         try
         {
             if (Airports is null)
+            {
+                SavedQuerries = await _searchQueryService.GetSavedQuerries();
                 Airports = await _aiportsService.GetAirports();
+            }    
         }
-        catch
+        catch (Exception ex)
         {
             Airports = new List<Airport>();
-            await Application.Current.MainPage.DisplayAlert("Error", "Error occured in init", "Ok");
+            await Application.Current.MainPage.DisplayAlert("Error", $"Error occured in init: {ex.Message}|{ex.InnerException.Message}", "Ok");
         }
     }
 
     [RelayCommand]
     async Task SearchFlights()
     {
+        if (From is null || To is null)
+        {
+            await Application.Current.MainPage.DisplayAlert("Uwaga", $"Uzupełnij wszystkie kryteria wyszukiwania", "Ok");
+            return;
+        }
+        var currentQuery = GetSearchQuery();
         await Shell.Current.GoToAsync(nameof(FlightsResultsPage), true, new Dictionary<string, object>
         {
             {
                 "Data",
-                GetSearchQuery()
+                currentQuery
             }
         });
     }

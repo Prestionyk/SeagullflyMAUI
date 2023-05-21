@@ -9,7 +9,7 @@
              x:DataType="viewmodel:SearchPageViewModel"
              Title="{Binding Title}">
 
-    <ContentPage.Content>
+    <ScrollView>
         <VerticalStackLayout
             BackgroundColor="White"
             Spacing="10">
@@ -365,5 +365,5 @@
                     Text="Zapisz" />
             </Grid>
         </VerticalStackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>
