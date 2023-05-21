@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using MauiWebScraper;
 using SeagullflyMaui.Model;
 
 namespace SeagullflyMaui.ViewModel;
@@ -8,6 +9,7 @@ public partial class HomePageViewModel : BaseViewModel
 
     public HomePageViewModel()
 	{
+        Airports.ScrapAirports();
         OffersOfTheDay = new List<DayOffer>()
         {
             new DayOffer
