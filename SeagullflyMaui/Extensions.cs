@@ -68,6 +68,7 @@ public static class Extensions
     {
         return new SearchQueryDto
         {
+            Id = query.Id,
             Name = query.Name,
             From = query.From,
             To = query.To,

@@ -4,5 +4,6 @@ namespace SeagullflyMaui.Interfaces;
 public interface ISearchQueryService
 {
     Task<List<SearchQueryDto>> GetSavedQuerries();
-    void SaveQuery(SearchQueryDto query);
+    Task SaveQuery(SearchQueryDto query);
+    Task DeleteQuery(int id);
 }

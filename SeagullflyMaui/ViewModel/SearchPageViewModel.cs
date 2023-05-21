@@ -5,7 +5,6 @@ using SeagullflyMaui.Enums;
 using SeagullflyMaui.Interfaces;
 using SeagullflyMaui.Model;
 using SeagullflyMaui.View;
-using SeagullflyMaui;
 
 namespace SeagullflyMaui.ViewModel;
 public partial class SearchPageViewModel : BaseViewModel
@@ -41,6 +40,8 @@ public partial class SearchPageViewModel : BaseViewModel
     bool queryLoaded = false;
     [ObservableProperty]
     bool btnSaveEnabled = true;
+
+    public int SelectedQueryId;
 
     public SearchPageViewModel(IAiportsService aiportsService, ISearchQueryService searchQueryService)
 	{
@@ -99,9 +100,19 @@ public partial class SearchPageViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    void SaveQuerry()
+    async Task SaveQuerry()
     {
-        _searchQueryService.SaveQuery(GetSearchQuery());
+        var name = await Application.Current.MainPage.DisplayPromptAsync("Zapisywanie", "Wprowadź nazwę", "Zapisz", "Anuluj", "Nazwa"); ;
+        var queryToSave = GetSearchQuery();
+        queryToSave.Name = name;
+
+        await _searchQueryService.SaveQuery(queryToSave);
+    }
+
+    [RelayCommand]
+    async Task DeleteSavedQuery()
+    {
+        await _searchQueryService.DeleteQuery(SelectedQueryId);
     }
 
     [RelayCommand]

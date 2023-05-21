@@ -22,8 +22,13 @@ public class SearchQueryService : ISearchQueryService
         return querries;
     }
 
-    public void SaveQuery(SearchQueryDto query)
+    public async Task SaveQuery(SearchQueryDto query)
     {
-        _seagullflyDatabase.Add(query.ToNotDto());
+        await _seagullflyDatabase.Add(query.ToNotDto());
+    }
+
+    public async Task DeleteQuery(int id)
+    {
+        await _seagullflyDatabase.Remove<SearchQuery>(id);
     }
 }

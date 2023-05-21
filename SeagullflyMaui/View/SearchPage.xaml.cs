@@ -1,4 +1,5 @@
-﻿using SeagullflyMaui.Model;
+﻿using SeagullflyMaui.DTOs;
+using SeagullflyMaui.Model;
 using SeagullflyMaui.ViewModel;
 
 namespace SeagullflyMaui.View;
@@ -40,6 +41,7 @@ public partial class SearchPage : ContentPage
     {
         _viewModel.QueryLoaded = true;
         _viewModel.BtnSaveEnabled = false;
+        _viewModel.SelectedQueryId = (((Picker)sender).SelectedItem as SearchQueryDto).Id;
     }
 
     private void QueryPropertiesChanged(object sender, EventArgs e)

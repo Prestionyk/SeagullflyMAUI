@@ -364,6 +364,12 @@
                     Command="{Binding SaveQuerryCommand}"
                     Text="Zapisz" />
             </Grid>
+            <Button
+                IsVisible="{Binding QueryLoaded}"
+                IsEnabled="{Binding QueryLoaded}"
+                Command="{Binding }"
+                TextColor="Red"
+                Text="Usuń"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
