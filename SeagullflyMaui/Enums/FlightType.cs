@@ -1,4 +1,6 @@
-﻿namespace SeagullflyMaui.Enums;
+﻿using System.Runtime.CompilerServices;
+
+namespace SeagullflyMaui.Enums;
 public enum FlightType
 {
     OneWay,

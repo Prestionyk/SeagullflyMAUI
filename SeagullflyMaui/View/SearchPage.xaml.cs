@@ -9,9 +9,15 @@ public partial class SearchPage : ContentPage
 
     public SearchPage(SearchPageViewModel viewModel)
     {
+        _viewModel = viewModel;
         InitializeComponent();
         BindingContext = viewModel;
-        _viewModel = viewModel;
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+        _viewModel.InitAsync();
     }
 
     private void SfAutocomplete_SelectionChangedFrom(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e)

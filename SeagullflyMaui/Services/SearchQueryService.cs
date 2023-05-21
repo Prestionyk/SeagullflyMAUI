@@ -1,5 +1,5 @@
-﻿using SeagullflyMaui.Interfaces;
-using SeagullflyMaui.Model;
+﻿using SeagullflyMaui.DTOs;
+using SeagullflyMaui.Interfaces;
 
 namespace SeagullflyMaui.Services;
 public class SearchQueryService : ISearchQueryService
@@ -11,11 +11,11 @@ public class SearchQueryService : ISearchQueryService
         _seagullflyDatabase = seagullflyDatabase;
     }
 
-    public List<SearchQuery> GetSavedQuerries()
+    public List<SearchQueryDto> GetSavedQuerries()
     {
-        var qierries = new List<SearchQuery>()
+        var qierries = new List<SearchQueryDto>()
         {
-            new SearchQuery()
+            new SearchQueryDto()
             {
                 Name = "One"
             }
@@ -24,7 +24,7 @@ public class SearchQueryService : ISearchQueryService
         return qierries;
     }
 
-    public void SaveQuery(SearchQuery query)
+    public void SaveQuery(SearchQueryDto query)
     {
         //_seagullflyDatabase.Add(query);
     }

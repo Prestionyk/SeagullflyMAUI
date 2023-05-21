@@ -1,4 +1,7 @@
-﻿namespace SeagullflyMaui.Model;
+﻿using SeagullflyMaui.Enums;
+using SQLiteNetExtensions.Attributes;
+
+namespace SeagullflyMaui.Model;
 public class SearchQuery : BaseTable
 {
     public string Name { get; set; }
@@ -6,14 +9,9 @@ public class SearchQuery : BaseTable
     public string To { get; set; }
     public DateTime Departure { get; set; }
     public DateTime Arrival { get; set; }
-    public string FlightType { get; set; }
-    public int AdultCount { get; set; }
-    public int YouthCount { get; set; }
-    public int ChildrenCount { get; set; }
-    public int InfantCount { get; set; }
-
-    public override string ToString()
-    {
-        return Name;
-    }
+    public FlightType FlightType { get; set; }
+    [OneToOne]
+    public Flight Flight { get; set; }
+    [OneToMany]
+    public List<Passenger> Passengers { get; set; }
 }

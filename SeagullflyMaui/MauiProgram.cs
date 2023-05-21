@@ -36,20 +36,21 @@ public static class MauiProgram
         builder.Services.AddSingleton<SearchPageViewModel>();
         builder.Services.AddSingleton<SearchPage>();
 
-        builder.Services.AddSingleton<ContactPageViewModel>();
-        builder.Services.AddSingleton<ContactPage>();
+        builder.Services.AddTransient<ContactPageViewModel>();
+        builder.Services.AddTransient<ContactPage>();
 
-        builder.Services.AddSingleton<FlightsResultsViewModel>();
-        builder.Services.AddSingleton<FlightsResultsPage>();
+        builder.Services.AddTransient<FlightsResultsViewModel>();
+        builder.Services.AddTransient<FlightsResultsPage>();
 
-        builder.Services.AddSingleton<FlightDetailsViewModel>();
-        builder.Services.AddSingleton<FlightDetailsPage>();
+        builder.Services.AddTransient<FlightDetailsViewModel>();
+        builder.Services.AddTransient<FlightDetailsPage>();
 
         builder.Services.AddSingleton<ISeagullflyDatabase, SeagullflyDatabase>();
 
         builder.Services.AddSingleton<IEmailService, EmailService>();
         builder.Services.AddSingleton<ISearchQueryService, SearchQueryService>();
         builder.Services.AddSingleton<IAiportsService, AiportsService>();
+        builder.Services.AddSingleton<IFlightOffersService, FlightOffersService>();
         builder.Services.AddSingleton<IWeatherService, WeatherService>();
 
         return builder;

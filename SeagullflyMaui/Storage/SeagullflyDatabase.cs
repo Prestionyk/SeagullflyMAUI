@@ -13,10 +13,12 @@ public class SeagullflyDatabase : ISeagullflyDatabase
         if (Database != null)
             return;
 
-        var databasePath = Path.Combine(FileSystem.AppDataDirectory, "SeagullflyData.db");
+        var databasePath = Path.Combine(FileSystem.AppDataDirectory, "SeagullflyDataTest.db");
         Database = new SQLiteConnection(databasePath);
 
         Database.CreateTable<SearchQuery>();
+        Database.CreateTable<Flight>();
+        Database.CreateTable<Passenger>();
     }
 
     public void Add<T>(T filter) where T : IBaseTable

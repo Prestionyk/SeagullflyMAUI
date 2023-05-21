@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SeagullflyMaui.DTOs;
 using SeagullflyMaui.Enums;
 using SeagullflyMaui.Interfaces;
 using SeagullflyMaui.Model;
@@ -12,7 +13,7 @@ public partial class SearchPageViewModel : BaseViewModel
     private readonly ISearchQueryService _searchQueryService;
 
     [ObservableProperty]
-    private List<SearchQuery> savedQuerries;
+    private List<SearchQueryDto> savedQuerries;
     [ObservableProperty]
     private List<Airport> airports;
     [ObservableProperty]
@@ -45,26 +46,34 @@ public partial class SearchPageViewModel : BaseViewModel
 		Title = "SEAGULLFLY";
         _aiportsService = aiportsService;
         _searchQueryService = searchQueryService;
-        FlightTypes = new ()
+        try
         {
-            FlightType.OneWay.ToString(),
-            FlightType.OneWayDirect.ToString(),
-            FlightType.TwoWays.ToString(),
-            FlightType.TwoWaysDirect.ToString()
-        };
-        SavedQuerries = _searchQueryService.GetSavedQuerries();
+            FlightTypes = new()
+            {
+                FlightType.OneWay.ToString(),
+                FlightType.OneWayDirect.ToString(),
+                FlightType.TwoWays.ToString(),
+                FlightType.TwoWaysDirect.ToString()
+            };
+                SavedQuerries = _searchQueryService.GetSavedQuerries();
+        }
+        catch
+        {
+            Application.Current.MainPage.DisplayAlert("Error", "Error occured in constructor", "Ok");
+        }
     }
 
-    [RelayCommand]
-    async Task InitAsync()
+    public async Task InitAsync()
     {
         try
         {
-            Airports = await _aiportsService.GetAirports();
+            if (Airports is null)
+                Airports = await _aiportsService.GetAirports();
         }
         catch
         {
             Airports = new List<Airport>();
+            await Application.Current.MainPage.DisplayAlert("Error", "Error occured in init", "Ok");
         }
     }
 
@@ -74,7 +83,7 @@ public partial class SearchPageViewModel : BaseViewModel
         await Shell.Current.GoToAsync(nameof(FlightsResultsPage), true, new Dictionary<string, object>
         {
             {
-                "Query",
+                "Data",
                 GetSearchQuery()
             }
         });
@@ -134,9 +143,9 @@ public partial class SearchPageViewModel : BaseViewModel
         InfantCount = newValue;
     }
 
-    private SearchQuery GetSearchQuery()
+    private SearchQueryDto GetSearchQuery()
     {
-        return new SearchQuery()
+        return new SearchQueryDto()
         {
             To = To,
             From = From,

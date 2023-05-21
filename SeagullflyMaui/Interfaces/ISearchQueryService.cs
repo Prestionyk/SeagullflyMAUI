@@ -1,8 +1,8 @@
-﻿using SeagullflyMaui.Model;
+﻿using SeagullflyMaui.DTOs;
 
 namespace SeagullflyMaui.Interfaces;
 public interface ISearchQueryService
 {
-    List<SearchQuery> GetSavedQuerries();
-    void SaveQuery(SearchQuery query);
+    List<SearchQueryDto> GetSavedQuerries();
+    void SaveQuery(SearchQueryDto query);
 }

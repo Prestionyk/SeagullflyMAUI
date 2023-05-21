@@ -1,14 +1,145 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:SeagullflyMaui.Model"
              xmlns:viewmodel="clr-namespace:SeagullflyMaui.ViewModel"
              x:Class="SeagullflyMaui.View.FlightDetailsPage"
              x:DataType="viewmodel:FlightDetailsViewModel"
              Title="{Binding Title}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout
+        BackgroundColor="LightCyan">
+        <Grid
+            Margin="20,20,20,0"
+            RowSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label
+                TextColor="Black"
+                FontSize="Medium"
+                Text="Szczegóły lotu:"/>
+            <Label
+                Grid.Column="1"
+                TextColor="Black"
+                FontSize="Medium"
+                Margin="50,0,0,0"
+                Text="{Binding Carrier}"/>
+            <CollectionView
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                ItemsSource="{Binding Travellings}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Travelling">
+                        <Grid
+                            BackgroundColor="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label
+                                Margin="10"
+                                TextColor="Black"
+                                FontAttributes="Bold"
+                                Text="{Binding From}"/>
+                            <Frame
+                                BorderColor="Transparent"
+                                BackgroundColor="DarkBlue"
+                                HeightRequest="1"
+                                CornerRadius="10"
+                                Grid.Column="1"/>
+                            <Label
+                                Margin="10"
+                                TextColor="Black"
+                                FontAttributes="Bold"
+                                Grid.Column="2"
+                                Text="{Binding To}"/>
+                            <Label
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="CenterAndExpand"
+                                TextColor="Black"
+                                FontAttributes="Bold"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding Period}"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label
+                Grid.Row="2"
+                TextColor="Black"
+                HorizontalOptions="End"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="Całkowity koszt:"/>
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="10,0,0,0"
+                TextColor="DarkBlue"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="{Binding Price, StringFormat='{0} PLN'}"/>
+            <Grid
+                Grid.ColumnSpan="2"
+                Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label
+                    TextColor="Black"
+                    Text="{Binding Rain, StringFormat='Szansa opadów: {0}%'}"/>
+                <Label
+                    Grid.Row="1"
+                    TextColor="Black"
+                    Text="{Binding Humidity, StringFormat='Wilgotność: {0}%'}"/>
+                <Label
+                    Grid.Row="2"
+                    TextColor="Black"
+                    Text="{Binding Wind, StringFormat='Wiatr: {0}km/h'}"/>
+                <Label
+                    Grid.Column="1"
+                    Grid.RowSpan="3"
+                    FontSize="Large"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    Text="{Binding Temperature, StringFormat='{0}°C'}"/>
+            </Grid>
+            <Button
+                Grid.Row="4"
+                Grid.ColumnSpan="2"
+                Margin="60,0,60,0"
+                TextColor="White"
+                BackgroundColor="Cyan"
+                Text="Obserwuj"
+                Command="{Binding OpenOffertCommand}"/>
+            <Button
+                Grid.Row="5"
+                Grid.ColumnSpan="2"
+                TextColor="White"
+                BackgroundColor="DarkBlue"
+                Text="Przekieruj"
+                Command="{Binding ObserveOffertCommand}"/>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>
