@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using SeagullflyMaui.Interfaces;
 using SeagullflyMaui.Model;
-using SeagullflyMaui.View;
 
 namespace SeagullflyMaui.ViewModel;
 public partial class ContactPageViewModel : BaseViewModel
@@ -17,18 +16,21 @@ public partial class ContactPageViewModel : BaseViewModel
 	string email;
 
     [ObservableProperty]
+    string emailTitle;
+
+    [ObservableProperty]
     string description;
 
     readonly IEmailService emailService;
 
     public ContactPageViewModel(IEmailService emailService)
 	{
-		title = "Contact page!";
+		Title = "KONTAKT";
         topics = new List<string>()
             {
-                "Question",
-                "Error",
-                "Review"
+                "Pytanie",
+                "Błąd",
+                "Ocena"
             };
 
         this.emailService = emailService;
@@ -39,10 +41,10 @@ public partial class ContactPageViewModel : BaseViewModel
     {
         var request = new EmailRequest()
         {
-            From = email,
-            Title = topics[SelectedTopicIndex],
-            Description = title,
-            Message = description
+            From = Email,
+            Title = Topics[SelectedTopicIndex],
+            Description = EmailTitle,
+            Message = Description
         };
 
         await emailService.SendAsync(request);

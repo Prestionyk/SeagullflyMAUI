@@ -1,41 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewmodel="clr-namespace:SeagullflyMaui.ViewModel"
+             xmlns:models="clr-namespace:SeagullflyMaui.Model"
              x:Class="SeagullflyMaui.View.HomePage"
              x:DataType="viewmodel:HomePageViewModel">
 
-    <ScrollView>
+    <ScrollView
+        BackgroundColor="Transparent">
         <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-
+            Spacing="0"
+            Padding="0"
+            VerticalOptions="Start">
             <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                Padding="25"
+                Text="Najlepsze ofety dnia"
+                FontSize="Medium"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                TextColor="Black"
+                BackgroundColor="LightSlateGray"/>
+            <CollectionView
+                ItemsSource="{Binding OffersOfTheDay}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:DayOffer">
+                        <Frame
+                            Padding="5"
+                            CornerRadius="0"
+                            BackgroundColor="LightCyan">
+                            <Grid
+                                Padding="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.6*" />
+                                    <ColumnDefinition Width="0.4*" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    TextColor="Black"
+                                    BackgroundColor="Transparent"
+                                    LineBreakMode="CharacterWrap"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Text="{Binding  Description}"
+                                    FontAttributes="Bold"
+                                    FontSize="Medium"
+                                    Margin="0,0,0,10"/>
+                                <Label
+                                    TextColor="Black"
+                                    BackgroundColor="Transparent"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Text="{Binding Shortcut}"
+                                    FontAttributes="Italic"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="CenterAndExpand"/>
+                                <Label
+                                    TextColor="Black"
+                                    BackgroundColor="Transparent"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Text="{Binding Price}"
+                                    FontAttributes="Bold"
+                                    VerticalOptions="End"
+                                    HorizontalOptions="Center"
+                                    FontSize="Large"/>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:HomePageViewModel}}, Path=GoToUrlCommand}"
+                                              CommandParameter="{Binding Url}"/>
+                            </Frame.GestureRecognizers>
+                            <Frame.Shadow>
+                                <Shadow
+                                    Brush="Black"
+                                    Offset="0,10"
+                                    Opacity="0.8"/>
+                            </Frame.Shadow>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
         </VerticalStackLayout>
     </ScrollView>

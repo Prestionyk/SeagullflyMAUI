@@ -1,21 +1,369 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:viewmodel="clr-namespace:SeagullflyMaui.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
              x:Class="SeagullflyMaui.View.SearchPage"
              x:DataType="viewmodel:SearchPageViewModel"
              Title="{Binding Title}">
 
     <ContentPage.Content>
-        <Grid RowDefinitions="*,Auto">
+        <VerticalStackLayout
+            BackgroundColor="White"
+            Spacing="10">
             <Label
-                Grid.Row="0"
-                Text="{Binding Data}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-                FontSize="Large"/>
-            <Button Command="{Binding SearchFlightsCommand}" x:Name="ButtonClick" Grid.Row="1" Text="Scrap me!" />
-        </Grid>
+                Padding="25"
+                Text="Wyszukaj to co lubisz"
+                FontSize="Medium"
+                VerticalOptions="Start"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                TextColor="Black"
+                BackgroundColor="LightSlateGray"/>
+            <Grid
+                RowSpacing="5"
+                BackgroundColor="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontSize="Large"
+                    TextColor="Black"
+                    Text="Wyszukaj biletu:"/>
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="10,0,0,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BorderColor="Transparent"
+                    BackgroundColor="LightGray">
+                    <Picker
+                        Title="Wczytaj zapisany filtr"
+                        TitleColor="Black"
+                        TextColor="Black"
+                        VerticalTextAlignment="End"
+                        SelectedIndexChanged="QueryLoaded"
+                        ItemsSource="{Binding SavedQuerries}">
+                    </Picker>
+                </Frame>
+                <Frame
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Padding="10,0,10,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BorderColor="Transparent"
+                    BackgroundColor="LightGray">
+                    <editors:SfAutocomplete
+                        TextColor="Black"
+                        PlaceholderColor="Black"
+                        Stroke="LightGray"
+                        BackgroundColor="Transparent"
+                        MaxDropDownHeight="100"
+                        HorizontalOptions="Start"
+                        Placeholder="Z:"
+                        SelectionChanged="SfAutocomplete_SelectionChangedFrom"
+                        DisplayMemberPath = "FullName"
+                        TextMemberPath = "FullName"
+                        ItemsSource="{Binding Airports}" />
+                </Frame>
+                <Frame
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BorderColor="Transparent"
+                    Padding="10,0,10,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BackgroundColor="LightGray">
+                    <editors:SfAutocomplete
+                        TextColor="Black"
+                        PlaceholderColor="Black"
+                        Stroke="LightGray"
+                        BackgroundColor="Transparent"
+                        MaxDropDownHeight="100"
+                        HorizontalOptions="Start"
+                        Placeholder="Do:"
+                        SelectionChanged="SfAutocomplete_SelectionChangedTo"
+                        DisplayMemberPath = "FullName"
+                        TextMemberPath = "FullName"
+                        ItemsSource="{Binding Airports}" />
+                </Frame>
+                <Frame
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BorderColor="Transparent"
+                    Padding="20,0,0,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BackgroundColor="LightGray">
+                    <DatePicker
+                        Date="{Binding Departure}"
+                        MinimumDate="{x:Static sys:DateTime.Now}"
+                        PropertyChanged="QueryPropertiesChanged"
+                        TextColor="Black" />
+                </Frame>
+                <Frame
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BorderColor="Transparent"
+                    Padding="20,0,0,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BackgroundColor="LightGray">
+                    <DatePicker
+                        Date="{Binding Arrival}"
+                        MinimumDate="{x:Static sys:DateTime.Now}"
+                        PropertyChanged="QueryPropertiesChanged"
+                        TextColor="Black" />
+                </Frame>
+                <Frame
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BorderColor="Transparent"
+                    Padding="20,0,0,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BackgroundColor="LightGray">
+                    <Picker
+                        Title="Typ:"
+                        TitleColor="Black"
+                        TextColor="Black"
+                        VerticalTextAlignment="End"
+                        SelectedIndexChanged="QueryPropertiesChanged"
+                        SelectedIndex="{Binding SelectedFlightTypeIndex}"
+                        ItemsSource="{Binding FlightTypes}">
+                    </Picker>
+                </Frame>
+                <Label
+                    Grid.Row="6"
+                    Grid.ColumnSpan="2"
+                    FontSize="Large"
+                    TextColor="Black"
+                    Text="Pasażerowie:"/>
+                <Frame
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BorderColor="Transparent"
+                    Padding="20,0,0,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BackgroundColor="LightGray">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            TextColor="Black"
+                            VerticalTextAlignment="Center"
+                            Text="Dorośli:"/>
+                        <Label
+                            Grid.Column="1"
+                            TextColor="Black"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding AdultCount, StringFormat='{}{0}x'}"/>
+                        <Button
+                            Grid.Column="2"
+                            Margin="15,0,15,0"
+                            BackgroundColor="LawnGreen"
+                            CornerRadius="0"
+                            Command="{Binding ChangeAdultCountCommand}"
+                            CommandParameter="+1"/>
+                        <Button
+                            Grid.Column="3"
+                            Margin="15,0,15,0"
+                            BackgroundColor="Red"
+                            CornerRadius="0"
+                            Command="{Binding ChangeAdultCountCommand}"
+                            CommandParameter="-1"/>
+                    </Grid>
+                </Frame>
+                <Frame
+                    Grid.Row="8"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BorderColor="Transparent"
+                    Padding="20,0,0,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BackgroundColor="LightGray">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            TextColor="Black"
+                            VerticalTextAlignment="Center"
+                            Text="Młodzież:"/>
+                        <Label
+                            Grid.Column="1"
+                            TextColor="Black"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding YouthCount, StringFormat='{}{0}x'}"/>
+                        <Button
+                            Grid.Column="2"
+                            Margin="15,0,15,0"
+                            BackgroundColor="LawnGreen"
+                            CornerRadius="0"
+                            Command="{Binding ChangeYouthCountCommand}"
+                            CommandParameter="+1"/>
+                        <Button
+                            Grid.Column="3"
+                            Margin="15,0,15,0"
+                            BackgroundColor="Red"
+                            CornerRadius="0"
+                            Command="{Binding ChangeYouthCountCommand}"
+                            CommandParameter="-1"/>
+                    </Grid>
+                </Frame>
+                <Frame
+                    Grid.Row="9"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BorderColor="Transparent"
+                    Padding="20,0,0,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BackgroundColor="LightGray">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            TextColor="Black"
+                            VerticalTextAlignment="Center"
+                            Text="Dzieci:"/>
+                        <Label
+                            Grid.Column="1"
+                            TextColor="Black"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding ChildrenCount, StringFormat='{}{0}x'}"/>
+                        <Button
+                            Grid.Column="2"
+                            Margin="15,0,15,0"
+                            BackgroundColor="LawnGreen"
+                            CornerRadius="0"
+                            Command="{Binding ChangeChildrenCountCommand}"
+                            CommandParameter="+1"/>
+                        <Button
+                            Grid.Column="3"
+                            Margin="15,0,15,0"
+                            BackgroundColor="Red"
+                            CornerRadius="0"
+                            Command="{Binding ChangeChildrenCountCommand}"
+                            CommandParameter="-1"/>
+                    </Grid>
+                </Frame>
+                <Frame
+                    Grid.Row="10"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    BorderColor="Transparent"
+                    Padding="20,0,0,0"
+                    CornerRadius="0"
+                    Margin="10,0,10,0"
+                    BackgroundColor="LightGray">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            TextColor="Black"
+                            VerticalTextAlignment="Center"
+                            Text="Niemowlęta:"/>
+                        <Label
+                            Grid.Column="1"
+                            TextColor="Black"
+                            VerticalTextAlignment="Center"
+                            Text="{Binding InfantCount, StringFormat='{}{0}x'}"/>
+                        <Button
+                            Grid.Column="2"
+                            Margin="15,0,15,0"
+                            BackgroundColor="LawnGreen"
+                            CornerRadius="0"
+                            Command="{Binding ChangeInfantCountCommand}"
+                            CommandParameter="1"/>
+                        <Button
+                            Grid.Column="3"
+                            Margin="15,0,15,0"
+                            BackgroundColor="Red"
+                            CornerRadius="0"
+                            Command="{Binding ChangeInfantCountCommand}"
+                            CommandParameter="-1"/>
+                    </Grid>
+                </Frame>
+                <Button
+                    Grid.Row="11"
+                    CornerRadius="10"
+                    Margin="10,20,10,0"
+                    BackgroundColor="DarkBlue"
+                    TextColor="White"
+                    Command="{Binding SearchFlightsCommand}"
+                    Text="Szukaj" />
+                <Button
+                    Grid.Row="11"
+                    Grid.Column="1"
+                    CornerRadius="10"
+                    Margin="40,20,40,0"
+                    BackgroundColor="Cyan"
+                    TextColor="White"
+                    IsEnabled="{Binding BtnSaveEnabled}"
+                    Command="{Binding SaveQuerryCommand}"
+                    Text="Zapisz" />
+            </Grid>
+        </VerticalStackLayout>
     </ContentPage.Content>
-
 </ContentPage>

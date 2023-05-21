@@ -2,16 +2,114 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:SeagullflyMaui.ViewModel"
+             xmlns:models="clr-namespace:SeagullflyMaui.Model"
              x:Class="SeagullflyMaui.View.FlightsResultsPage"
-             Title="FlightsResultsPage"
-             x:DataType="viewmodel:FlightsResultsViewModel">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Button
-            Text="Show details"
-            Command="{Binding FlightDetailsCommand}"/>
-    </VerticalStackLayout>
+             x:DataType="viewmodel:FlightsResultsViewModel"
+             Title="{Binding Title}">
+    <ScrollView
+        BackgroundColor="Transparent">
+        <VerticalStackLayout>
+            <Label
+                Padding="25"
+                Text="Najlepsze wybrane loty"
+                FontSize="Medium"
+                VerticalOptions="Start"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
+                TextColor="Black"
+                BackgroundColor="LightSlateGray"/>
+            <CollectionView
+                ItemsSource="{Binding FlightOffers}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:FlightOffer">
+                        <Frame
+                            CornerRadius="0"
+                            BackgroundColor="LightCyan">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <CollectionView
+                                    Grid.ColumnSpan="3"
+                                    ItemsSource="{Binding Travellings}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:Travelling">
+                                            <Grid
+                                                BackgroundColor="Transparent">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Label
+                                                    Margin="10"
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"
+                                                    Text="{Binding From}"/>
+                                                <Frame
+                                                    BorderColor="Transparent"
+                                                    BackgroundColor="DarkBlue"
+                                                    HeightRequest="1"
+                                                    CornerRadius="10"
+                                                    Grid.Column="1"/>
+                                                <Label
+                                                    Margin="10"
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"
+                                                    Grid.Column="2"
+                                                    Text="{Binding To}"/>
+                                                <Label
+                                                    BackgroundColor="Transparent"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"
+                                                    Text="{Binding Period}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                                <Label
+                                    Text="{Binding Carrier}"
+                                    TextColor="Black"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    FontSize="Large"
+                                    Grid.Row="1"/>
+                                <Label
+                                    Text="{Binding FullCost, StringFormat='{0} PLN'}"
+                                    TextColor="DarkBlue"
+                                    FontAttributes="Bold"
+                                    HorizontalTextAlignment="Center"
+                                    FontSize="Large"
+                                    Grid.Column="2"
+                                    Grid.Row="1"/>
+                                <Button
+                                    Text="Wybierz"
+                                    BackgroundColor="DarkBlue"
+                                    TextColor="White"
+                                    Margin="50,10,50,0"
+                                    Grid.Row="2"
+                                    Grid.ColumnSpan="3"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FlightsResultsViewModel}}, Path=FlightDetailsCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
