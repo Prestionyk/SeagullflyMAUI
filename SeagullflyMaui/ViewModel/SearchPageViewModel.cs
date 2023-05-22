@@ -44,6 +44,8 @@ public partial class SearchPageViewModel : BaseViewModel
     [ObservableProperty]
     SearchQueryDto selectedQuery;
 
+    public bool QueryIsLoading;
+
     public SearchPageViewModel(IAiportsService aiportsService, ISearchQueryService searchQueryService)
 	{
 		Title = "SEAGULLFLY";
@@ -141,54 +143,53 @@ public partial class SearchPageViewModel : BaseViewModel
 
     [RelayCommand]
     void ChangeAdultCount(string change)
-    {
-        var newValue = Math.Clamp(AdultCount + int.Parse(change), 0, 10);
-        if (newValue != AdultCount)
-        {
-            QueryLoaded = false;
-            BtnSaveEnabled = true;
-            SelectedQuery = null;
-        }  
-        AdultCount = newValue; 
+    { 
+        AdultCount = Math.Clamp(AdultCount + int.Parse(change), 0, 10);
+        RemoveQueryIfDifferent();
     }
 
     [RelayCommand]
     void ChangeYouthCount(string change)
     {
-        var newValue = Math.Clamp(YouthCount + int.Parse(change), 0, 10);
-        if (newValue != YouthCount)
-        {
-            QueryLoaded = false;
-            BtnSaveEnabled = true;
-            SelectedQuery = null;
-        }
-        YouthCount = newValue;
+        YouthCount = Math.Clamp(YouthCount + int.Parse(change), 0, 10);
+        RemoveQueryIfDifferent();
     }
 
     [RelayCommand]
     void ChangeChildrenCount(string change)
     {
-        var newValue = Math.Clamp(ChildrenCount + int.Parse(change), 0, 10);
-        if (newValue != ChildrenCount)
-        {
-            QueryLoaded = false;
-            BtnSaveEnabled = true;
-            SelectedQuery = null;
-        }
-        ChildrenCount = newValue;
+        ChildrenCount = Math.Clamp(ChildrenCount + int.Parse(change), 0, 10);
+        RemoveQueryIfDifferent();
     }
 
     [RelayCommand]
     void ChangeInfantCount(string change)
     {
-        var newValue = Math.Clamp(InfantCount + int.Parse(change), 0, 10);
-        if (newValue != InfantCount)
+        InfantCount = Math.Clamp(InfantCount + int.Parse(change), 0, 10);
+        RemoveQueryIfDifferent();
+    }
+
+    public void RemoveQueryIfDifferent()
+    {
+        if (SelectedQuery != null && !QueryIsLoading)
         {
-            QueryLoaded = false;
-            BtnSaveEnabled = true;
-            SelectedQuery = null;
+            if (
+                SelectedQuery.From != From ||
+                SelectedQuery.To != To ||
+                SelectedQuery.Arrival != Arrival ||
+                SelectedQuery.Departure != Departure ||
+                SelectedQuery.FlightType != FlightTypes[SelectedFlightTypeIndex] ||
+                SelectedQuery.AdultCount != AdultCount ||
+                SelectedQuery.ChildrenCount != ChildrenCount ||
+                SelectedQuery.YouthCount != YouthCount ||
+                SelectedQuery.InfantCount != InfantCount
+                )
+            {
+                SelectedQuery = null;
+                QueryLoaded = false;
+                BtnSaveEnabled = true;
+            }
         }
-        InfantCount = newValue;
     }
 
     private SearchQueryDto GetSearchQuery()

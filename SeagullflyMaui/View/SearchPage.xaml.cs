@@ -8,8 +8,6 @@ public partial class SearchPage : ContentPage
 {
     readonly SearchPageViewModel _viewModel;
 
-    bool isQuerySaving;
-
     public SearchPage(SearchPageViewModel viewModel)
     {
         _viewModel = viewModel;
@@ -26,29 +24,22 @@ public partial class SearchPage : ContentPage
     private void SfAutocomplete_SelectionChangedFrom(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e)
     {
         var airport = (Airport)e.CurrentSelection[0];
-        _viewModel.QueryLoaded = false;
-        _viewModel.BtnSaveEnabled = true;
         _viewModel.From = airport?.IATACode ?? string.Empty;
-        _viewModel.SelectedQuery = null;
+        _viewModel.RemoveQueryIfDifferent();
     }
 
     private void SfAutocomplete_SelectionChangedTo(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e)
     {
         var airport = (Airport)e.CurrentSelection[0];
-        _viewModel.QueryLoaded = false;
-        _viewModel.BtnSaveEnabled = true;
         _viewModel.To = airport?.IATACode ?? string.Empty;
-        _viewModel.SelectedQuery = null;
+        _viewModel.RemoveQueryIfDifferent();
     }
 
     private void QueryLoaded(object sender, EventArgs e)
     {
-        var loadedQuery = ((Picker)sender).SelectedItem as SearchQueryDto;
-        
-        if ( loadedQuery != null )
+        if (((Picker)sender).SelectedItem is SearchQueryDto loadedQuery)
         {
-            isQuerySaving = true;
-
+            _viewModel.QueryIsLoading = true;
             _viewModel.From = loadedQuery.From;
             _viewModel.To = loadedQuery.To;
             _viewModel.Arrival = loadedQuery.Arrival;
@@ -62,21 +53,13 @@ public partial class SearchPage : ContentPage
 
             _viewModel.QueryLoaded = true;
             _viewModel.BtnSaveEnabled = false;
-            isQuerySaving = false;
-        }
-        else
-        {
-            _viewModel.QueryLoaded = false;
-            _viewModel.BtnSaveEnabled = true;
+            _viewModel.QueryIsLoading = false;
         }
     }
 
     private void QueryPropertiesChanged(object sender, EventArgs e)
     {
-        _viewModel.QueryLoaded = false;
-        _viewModel.BtnSaveEnabled = true;
-        if (!isQuerySaving)
-            _viewModel.SelectedQuery = null;
+        _viewModel.RemoveQueryIfDifferent();
     }
 }
 
