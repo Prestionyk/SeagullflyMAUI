@@ -8,10 +8,10 @@ public class WeatherService : IWeatherService
     {
         return new WeatherResult()
         {
-            RainProbability = "50",
-            Humidity = "90",
-            Wind = "5",
-            Temperature = "1",
+            RainProbability = new Random().Next(0,100).ToString(),
+            Humidity = new Random().Next(0, 100).ToString(),
+            Wind = new Random().Next(0, 30).ToString(),
+            Temperature = new Random().Next(0, 40).ToString(),
         };
     }
 }

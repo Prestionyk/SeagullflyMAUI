@@ -54,17 +54,19 @@
                                                 </Grid.RowDefinitions>
                                                 <Label
                                                     Margin="10"
+                                                    Padding="5"
                                                     TextColor="Black"
                                                     FontAttributes="Bold"
                                                     Text="{Binding From}"/>
                                                 <Frame
                                                     BorderColor="Transparent"
                                                     BackgroundColor="DarkBlue"
-                                                    HeightRequest="1"
+                                                    HeightRequest="10"
                                                     CornerRadius="10"
                                                     Grid.Column="1"/>
                                                 <Label
                                                     Margin="10"
+                                                    Padding="5"
                                                     TextColor="Black"
                                                     FontAttributes="Bold"
                                                     Grid.Column="2"
@@ -86,7 +88,7 @@
                                     TextColor="Black"
                                     FontAttributes="Bold"
                                     HorizontalTextAlignment="Center"
-                                    FontSize="Large"
+                                    FontSize="Medium"
                                     Grid.Row="1"/>
                                 <Label
                                     Text="{Binding FullCost, StringFormat='{0} PLN'}"

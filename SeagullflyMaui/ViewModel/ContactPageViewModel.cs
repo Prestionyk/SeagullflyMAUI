@@ -47,9 +47,14 @@ public partial class ContactPageViewModel : BaseViewModel
             Message = Description
         };
 
-        await emailService.SendAsync(request);
+        if (Connectivity.Current.NetworkAccess == NetworkAccess.Internet)
+        {
+            await emailService.SendAsync(request);
 
-        ClearForm();
+            ClearForm();
+        }
+        else
+            await Application.Current.MainPage.DisplayAlert("Połączenie z internetem", "Nie masz aktywnego połączenia z internetem", "OK");
     }
 
     private void ClearForm()

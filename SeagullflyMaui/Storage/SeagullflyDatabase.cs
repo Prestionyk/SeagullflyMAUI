@@ -1,47 +1,48 @@
 ﻿using SeagullflyMaui.Interfaces;
 using SeagullflyMaui.Model;
 using SQLite;
-using SQLiteNetExtensions.Extensions;
+using SQLiteNetExtensionsAsync.Extensions;
 
 namespace SeagullflyMaui.Storage;
 
 public class SeagullflyDatabase : ISeagullflyDatabase
 {
-    static SQLiteConnection Database;
-    static void Init()
+    static SQLiteAsyncConnection Database;
+    static async Task Init()
     {
         if (Database != null)
             return;
 
-        var databasePath = Path.Combine(FileSystem.AppDataDirectory, "SeagullflyDataTest.db");
-        Database = new SQLiteConnection(databasePath);
+        var databasePath = Path.Combine(FileSystem.AppDataDirectory, "SeagullflyTestDatabase5.db");
+        Database = new SQLiteAsyncConnection(databasePath);
 
-        Database.CreateTable<SearchQuery>();
-        Database.CreateTable<Flight>();
-        Database.CreateTable<Passenger>();
+        await Database.CreateTableAsync<SearchQuery>();
+        await Database.CreateTableAsync<Flight>();
+        await Database.CreateTableAsync<Passenger>();
     }
 
-    public void Add<T>(T filter) where T : IBaseTable
+    public async Task Add<T>(T filter) where T : IBaseTable
     {
-        Init();
-        Database.InsertWithChildren(filter);
+        await Init();
+        await Database.InsertWithChildrenAsync(filter);
     }
 
-    public void Remove<T>(int id) where T : IBaseTable
+    public async Task Remove<T>(int id) where T : IBaseTable
     {
-        Init();
-        Database.Delete<T>(id);
+        await Init();
+        await Database.DeleteAsync<T>(id);
     }
 
-    public T Get<T>(int id) where T : IBaseTable, new()
+    public async Task<T> Get<T>(int id) where T : IBaseTable, new()
     {
-        Init();
-        return Database.GetWithChildren<T>(id);
+        await Init();
+        return await Database.GetWithChildrenAsync<T>(id);
     }
 
-    public IEnumerable<T> GetAll<T>() where T : IBaseTable, new()
+    public async Task<IEnumerable<T>> GetAll<T>() where T : IBaseTable, new()
     {
-        Init();
-        return Database.GetAllWithChildren<T>();
+        await Init();
+        var items = await Database.GetAllWithChildrenAsync<T>();
+        return items;
     }
 }

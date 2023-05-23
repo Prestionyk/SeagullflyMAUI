@@ -1,5 +1,6 @@
 ﻿using SeagullflyMaui.DTOs;
 using SeagullflyMaui.Interfaces;
+using SeagullflyMaui.MockData;
 using SeagullflyMaui.Model;
 
 namespace SeagullflyMaui.Services;
@@ -7,47 +8,19 @@ public class FlightOffersService : IFlightOffersService
 {
     public List<FlightOffer> GetFlightOffers(SearchQueryDto searchQuery)
     {
-        List<FlightOffer> offers = new()
-        {
-            new FlightOffer()
-            {
-                Carrier = "LOT",
-                FullCost = 1256,
-                Travellings = new List<Travelling>
-                {
-                    new Travelling()
-                    {
-                        From = "WRO",
-                        StartTime = "07:05",
-                        To = "WAW",
-                        EndTime = "08:05"
-                    },
-                    new Travelling()
-                    {
-                        From = "WAW",
-                        StartTime = "09:00",
-                        To = "BRI",
-                        EndTime = "11:30"
-                    }
-                }
-            },
-            new FlightOffer()
-            {
-                Carrier = "LOT",
-                FullCost = 1506,
-                Travellings = new List<Travelling>
-                {
-                    new Travelling()
-                    {
-                        From = "WRO",
-                        StartTime = "07:05",
-                        To = "BRI",
-                        EndTime = "11:30"
-                    }
-                }
-            }
-        };
+        List<FlightOffer> offers = new();
 
-        return offers;
+        var offerCount = new Random().Next(0, 7);
+        for(int i = 0; i <= offerCount; i++)
+        {
+            offers.Add(new FlightOffer
+            {
+                Carrier = RandomData.GetRandomCarrier(),
+                FullCost = new Random().Next(200, 2000),
+                Travellings = RandomData.GetRandomTravelings(searchQuery)
+            });
+        }
+
+        return offers.OrderBy(offer => offer.FullCost).ToList();
     }
 }

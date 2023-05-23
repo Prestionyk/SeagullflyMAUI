@@ -11,7 +11,7 @@ namespace SeagullflyMaui.ViewModel;
 public partial class FlightsResultsViewModel : BaseViewModel
 {
     public ObservableRangeCollection<FlightOffer> FlightOffers { get; } = new();
-    private SearchQueryDto SearchQueryDto;
+    public SearchQueryDto SearchQueryDto { get; set; }
 
     private readonly IFlightOffersService _flightOffersService;
 

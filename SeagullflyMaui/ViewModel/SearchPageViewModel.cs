@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SeagullflyMaui.DTOs;
 using SeagullflyMaui.Enums;
@@ -40,22 +41,27 @@ public partial class SearchPageViewModel : BaseViewModel
     bool queryLoaded = false;
     [ObservableProperty]
     bool btnSaveEnabled = true;
+    [ObservableProperty]
+    SearchQueryDto selectedQuery;
+
+    public bool QueryIsLoading;
 
     public SearchPageViewModel(IAiportsService aiportsService, ISearchQueryService searchQueryService)
 	{
 		Title = "SEAGULLFLY";
         _aiportsService = aiportsService;
         _searchQueryService = searchQueryService;
+        Arrival = DateTime.Now;
+        Departure = DateTime.Now;
         try
         {
             FlightTypes = new()
             {
-                FlightType.OneWay.ToString(),
-                FlightType.OneWayDirect.ToString(),
-                FlightType.TwoWays.ToString(),
-                FlightType.TwoWaysDirect.ToString()
+                FlightType.OneWay.ToPolishString(),
+                FlightType.OneWayDirect.ToPolishString(),
+                FlightType.TwoWays.ToPolishString(),
+                FlightType.TwoWaysDirect.ToPolishString()
             };
-                SavedQuerries = _searchQueryService.GetSavedQuerries();
         }
         catch
         {
@@ -68,79 +74,122 @@ public partial class SearchPageViewModel : BaseViewModel
         try
         {
             if (Airports is null)
+            {
                 Airports = await _aiportsService.GetAirports();
+                SavedQuerries = await _searchQueryService.GetSavedQuerries();
+            }    
         }
-        catch
+        catch (Exception ex)
         {
             Airports = new List<Airport>();
-            await Application.Current.MainPage.DisplayAlert("Error", "Error occured in init", "Ok");
+            await Application.Current.MainPage.DisplayAlert("Error", $"Error occured in init: {ex.Message}|{ex.InnerException.Message}", "Ok");
         }
     }
 
     [RelayCommand]
     async Task SearchFlights()
     {
+        if (From is null || To is null)
+        {
+            await Application.Current.MainPage.DisplayAlert("Uwaga", $"Uzupełnij wszystkie kryteria wyszukiwania", "Ok");
+            return;
+        }
+        var currentQuery = GetSearchQuery();
         await Shell.Current.GoToAsync(nameof(FlightsResultsPage), true, new Dictionary<string, object>
         {
             {
                 "Data",
-                GetSearchQuery()
+                currentQuery
             }
         });
     }
 
     [RelayCommand]
-    void SaveQuerry()
+    async Task SaveQuerry()
     {
-        _searchQueryService.SaveQuery(GetSearchQuery());
+        if (From is null || To is null)
+        {
+            await Application.Current.MainPage.DisplayAlert("Uwaga", $"Uzupełnij wszystkie kryteria wyszukiwania", "Ok");
+            return;
+        }
+
+        var name = await Application.Current.MainPage.DisplayPromptAsync("Zapisywanie", "Wprowadź nazwę", "Zapisz", "Anuluj", "Nazwa");
+        if (name is null)
+            return;
+        if (SavedQuerries.Any(qu => qu.Name == name))
+        {
+            await Application.Current.MainPage.DisplayAlert("Uwaga", $"Ta nazwa jest już zajęta", "Ok");
+            return;
+        }
+
+        var queryToSave = GetSearchQuery();
+        queryToSave.Name = name;
+
+        await _searchQueryService.SaveQuery(queryToSave);
+
+        await Application.Current.MainPage.DisplaySnackbar("Filtr zapisany");
+
+        SavedQuerries = await _searchQueryService.GetSavedQuerries();
+    }
+
+    [RelayCommand]
+    async Task DeleteSavedQuery()
+    {
+        await _searchQueryService.DeleteQuery(SelectedQuery.Id);
+        SavedQuerries = await _searchQueryService.GetSavedQuerries();
+
+        await Application.Current.MainPage.DisplaySnackbar("Filtr usunięty");
     }
 
     [RelayCommand]
     void ChangeAdultCount(string change)
-    {
-        var newValue = Math.Clamp(AdultCount += int.Parse(change), 0, 10);
-        if (newValue != AdultCount)
-        {
-            QueryLoaded = false;
-            BtnSaveEnabled = true;
-        }  
-        AdultCount = newValue; 
+    { 
+        AdultCount = Math.Clamp(AdultCount + int.Parse(change), 0, 10);
+        RemoveQueryIfDifferent();
     }
 
     [RelayCommand]
     void ChangeYouthCount(string change)
     {
-        var newValue = Math.Clamp(YouthCount += int.Parse(change), 0, 10);
-        if (newValue != YouthCount)
-        {
-            QueryLoaded = false;
-            BtnSaveEnabled = true;
-        }
-        YouthCount = newValue;
+        YouthCount = Math.Clamp(YouthCount + int.Parse(change), 0, 10);
+        RemoveQueryIfDifferent();
     }
 
     [RelayCommand]
     void ChangeChildrenCount(string change)
     {
-        var newValue = Math.Clamp(ChildrenCount += int.Parse(change), 0, 10);
-        if (newValue != ChildrenCount)
-        {
-            QueryLoaded = false;
-            BtnSaveEnabled = true;
-        }
-        ChildrenCount = newValue;
+        ChildrenCount = Math.Clamp(ChildrenCount + int.Parse(change), 0, 10);
+        RemoveQueryIfDifferent();
     }
 
     [RelayCommand]
     void ChangeInfantCount(string change)
     {
-        var newValue = Math.Clamp(InfantCount += int.Parse(change), 0, 10);
-        if (newValue != InfantCount)
+        InfantCount = Math.Clamp(InfantCount + int.Parse(change), 0, 10);
+        RemoveQueryIfDifferent();
+    }
+
+    public void RemoveQueryIfDifferent()
+    {
+        if (SelectedQuery != null && !QueryIsLoading)
         {
-            QueryLoaded = false;
-            BtnSaveEnabled = true;
+            if (
+                SelectedQuery.From != From ||
+                SelectedQuery.To != To ||
+                SelectedQuery.Arrival != Arrival ||
+                SelectedQuery.Departure != Departure ||
+                SelectedQuery.FlightType != FlightTypes[SelectedFlightTypeIndex] ||
+                SelectedQuery.AdultCount != AdultCount ||
+                SelectedQuery.ChildrenCount != ChildrenCount ||
+                SelectedQuery.YouthCount != YouthCount ||
+                SelectedQuery.InfantCount != InfantCount
+                )
+            {
+                SelectedQuery = null;
+                QueryLoaded = false;
+                BtnSaveEnabled = true;
+            }
         }
-        InfantCount = newValue;
     }
 
     private SearchQueryDto GetSearchQuery()
