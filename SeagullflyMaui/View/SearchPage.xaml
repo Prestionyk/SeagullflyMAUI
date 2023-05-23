@@ -198,16 +198,16 @@
                             Text="{Binding AdultCount, StringFormat='{}{0}x'}"/>
                         <Button
                             Grid.Column="2"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="LawnGreen"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeAdultCountCommand}"
                             CommandParameter="+1"/>
                         <Button
                             Grid.Column="3"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="Red"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeAdultCountCommand}"
                             CommandParameter="-1"/>
                     </Grid>
@@ -243,16 +243,16 @@
                             Text="{Binding YouthCount, StringFormat='{}{0}x'}"/>
                         <Button
                             Grid.Column="2"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="LawnGreen"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeYouthCountCommand}"
                             CommandParameter="+1"/>
                         <Button
                             Grid.Column="3"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="Red"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeYouthCountCommand}"
                             CommandParameter="-1"/>
                     </Grid>
@@ -288,16 +288,16 @@
                             Text="{Binding ChildrenCount, StringFormat='{}{0}x'}"/>
                         <Button
                             Grid.Column="2"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="LawnGreen"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeChildrenCountCommand}"
                             CommandParameter="+1"/>
                         <Button
                             Grid.Column="3"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="Red"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeChildrenCountCommand}"
                             CommandParameter="-1"/>
                     </Grid>
@@ -333,16 +333,16 @@
                             Text="{Binding InfantCount, StringFormat='{}{0}x'}"/>
                         <Button
                             Grid.Column="2"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="LawnGreen"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeInfantCountCommand}"
                             CommandParameter="1"/>
                         <Button
                             Grid.Column="3"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="Red"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeInfantCountCommand}"
                             CommandParameter="-1"/>
                     </Grid>

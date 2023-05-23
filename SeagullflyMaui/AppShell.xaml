@@ -9,15 +9,15 @@
     FlyoutBackgroundColor="Grey">
 
     <ShellContent
-        Title="Home"
+        Title="Start"
         ContentTemplate="{DataTemplate local:HomePage}"
         Route="MainPage" />
     <ShellContent
-        Title="SeagullflyPage"
+        Title="Seagullfly"
         ContentTemplate="{DataTemplate local:SearchPage}"
         Route="SeagullflyPage" />
     <ShellContent
-        Title="Contact"
+        Title="Kontakt"
         ContentTemplate="{DataTemplate local:ContactPage}"
         Route="ContactPage" />
 
