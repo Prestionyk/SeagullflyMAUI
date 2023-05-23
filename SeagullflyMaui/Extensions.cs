@@ -68,12 +68,13 @@ public static class Extensions
     {
         return new SearchQueryDto
         {
+            Id = query.Id,
             Name = query.Name,
             From = query.From,
             To = query.To,
             Arrival = query.Arrival,
             Departure = query.Departure,
-            FlightType = query.FlightType.ToString(),
+            FlightType = query.FlightType.ToPolishString(),
             AdultCount = query.Passengers.Where(p => p.Type == PassengerType.Adult).First().Quantity,
             YouthCount = query.Passengers.Where(p => p.Type == PassengerType.Youth).First().Quantity,
             ChildrenCount = query.Passengers.Where(p => p.Type == PassengerType.Children).First().Quantity,

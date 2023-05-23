@@ -16,14 +16,24 @@ public class SearchQueryService : ISearchQueryService
     {
         var querries = new List<SearchQueryDto>();
 
-        var searchQuerries = await _seagullflyDatabase.GetAll<SearchQuery>();
-        searchQuerries.ToList().ForEach(sq => querries.Add(sq.ToDto()));
+        try
+        {
+            var searchQuerries = await _seagullflyDatabase.GetAll<SearchQuery>();
+            searchQuerries.ToList().ForEach(sq => querries.Add(sq.ToDto()));
+        }
+        catch { }
 
         return querries;
     }
 
-    public void SaveQuery(SearchQueryDto query)
+    public async Task SaveQuery(SearchQueryDto query)
     {
-        _seagullflyDatabase.Add(query.ToNotDto());
+        var queryToSave = query.ToNotDto();
+        await _seagullflyDatabase.Add(queryToSave);
+    }
+
+    public async Task DeleteQuery(int id)
+    {
+        await _seagullflyDatabase.Remove<SearchQuery>(id);
     }
 }

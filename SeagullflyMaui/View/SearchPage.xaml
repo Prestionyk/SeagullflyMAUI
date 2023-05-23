@@ -58,11 +58,13 @@
                     BorderColor="Transparent"
                     BackgroundColor="LightGray">
                     <Picker
+                        x:Name="QueryPicker"
                         Title="Wczytaj zapisany filtr"
                         TitleColor="Black"
                         TextColor="Black"
                         VerticalTextAlignment="End"
                         SelectedIndexChanged="QueryLoaded"
+                        SelectedItem="{Binding SelectedQuery}"
                         ItemsSource="{Binding SavedQuerries}">
                     </Picker>
                 </Frame>
@@ -196,16 +198,16 @@
                             Text="{Binding AdultCount, StringFormat='{}{0}x'}"/>
                         <Button
                             Grid.Column="2"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="LawnGreen"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeAdultCountCommand}"
                             CommandParameter="+1"/>
                         <Button
                             Grid.Column="3"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="Red"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeAdultCountCommand}"
                             CommandParameter="-1"/>
                     </Grid>
@@ -241,16 +243,16 @@
                             Text="{Binding YouthCount, StringFormat='{}{0}x'}"/>
                         <Button
                             Grid.Column="2"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="LawnGreen"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeYouthCountCommand}"
                             CommandParameter="+1"/>
                         <Button
                             Grid.Column="3"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="Red"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeYouthCountCommand}"
                             CommandParameter="-1"/>
                     </Grid>
@@ -286,16 +288,16 @@
                             Text="{Binding ChildrenCount, StringFormat='{}{0}x'}"/>
                         <Button
                             Grid.Column="2"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="LawnGreen"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeChildrenCountCommand}"
                             CommandParameter="+1"/>
                         <Button
                             Grid.Column="3"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="Red"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeChildrenCountCommand}"
                             CommandParameter="-1"/>
                     </Grid>
@@ -331,16 +333,16 @@
                             Text="{Binding InfantCount, StringFormat='{}{0}x'}"/>
                         <Button
                             Grid.Column="2"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="LawnGreen"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeInfantCountCommand}"
                             CommandParameter="1"/>
                         <Button
                             Grid.Column="3"
-                            Margin="15,0,15,0"
+                            Margin="15,5,15,5"
                             BackgroundColor="Red"
-                            CornerRadius="0"
+                            CornerRadius="20"
                             Command="{Binding ChangeInfantCountCommand}"
                             CommandParameter="-1"/>
                     </Grid>
@@ -364,6 +366,14 @@
                     Command="{Binding SaveQuerryCommand}"
                     Text="Zapisz" />
             </Grid>
+            <Button
+                IsVisible="{Binding QueryLoaded}"
+                IsEnabled="{Binding QueryLoaded}"
+                Command="{Binding DeleteSavedQueryCommand}"
+                Margin="50,0,50,0"
+                TextColor="Red"
+                BackgroundColor="LightGrey"
+                Text="Usuń"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

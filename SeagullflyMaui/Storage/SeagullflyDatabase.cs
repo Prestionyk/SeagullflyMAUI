@@ -8,40 +8,41 @@ namespace SeagullflyMaui.Storage;
 public class SeagullflyDatabase : ISeagullflyDatabase
 {
     static SQLiteAsyncConnection Database;
-    static void Init()
+    static async Task Init()
     {
         if (Database != null)
             return;
 
-        var databasePath = Path.Combine(FileSystem.AppDataDirectory, "SeagullflyDataTest.db");
+        var databasePath = Path.Combine(FileSystem.AppDataDirectory, "SeagullflyTestDatabase5.db");
         Database = new SQLiteAsyncConnection(databasePath);
 
-        Database.CreateTableAsync<SearchQuery>();
-        Database.CreateTableAsync<Flight>();
-        Database.CreateTableAsync<Passenger>();
+        await Database.CreateTableAsync<SearchQuery>();
+        await Database.CreateTableAsync<Flight>();
+        await Database.CreateTableAsync<Passenger>();
     }
 
     public async Task Add<T>(T filter) where T : IBaseTable
     {
-        Init();
+        await Init();
         await Database.InsertWithChildrenAsync(filter);
     }
 
     public async Task Remove<T>(int id) where T : IBaseTable
     {
-        Init();
+        await Init();
         await Database.DeleteAsync<T>(id);
     }
 
-    public Task<T> Get<T>(int id) where T : IBaseTable, new()
+    public async Task<T> Get<T>(int id) where T : IBaseTable, new()
     {
-        Init();
-        return Database.GetWithChildrenAsync<T>(id);
+        await Init();
+        return await Database.GetWithChildrenAsync<T>(id);
     }
 
     public async Task<IEnumerable<T>> GetAll<T>() where T : IBaseTable, new()
     {
-        Init();
-        return await Database.GetAllWithChildrenAsync<T>();
+        await Init();
+        var items = await Database.GetAllWithChildrenAsync<T>();
+        return items;
     }
 }
