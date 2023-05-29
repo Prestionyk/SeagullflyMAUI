@@ -18,9 +18,9 @@ public partial class SearchPageViewModel : BaseViewModel
     [ObservableProperty]
     private List<Airport> airports;
     [ObservableProperty]
-    private string from;
+    private Airport from;
     [ObservableProperty]
-    private string to;
+    private Airport to;
     [ObservableProperty]
     private DateTime departure;
     [ObservableProperty]
@@ -174,8 +174,8 @@ public partial class SearchPageViewModel : BaseViewModel
         if (SelectedQuery != null && !QueryIsLoading)
         {
             if (
-                SelectedQuery.From != From ||
-                SelectedQuery.To != To ||
+                SelectedQuery.From != From.IATACode ||
+                SelectedQuery.To != To.IATACode ||
                 SelectedQuery.Arrival != Arrival ||
                 SelectedQuery.Departure != Departure ||
                 SelectedQuery.FlightType != FlightTypes[SelectedFlightTypeIndex] ||
@@ -196,8 +196,8 @@ public partial class SearchPageViewModel : BaseViewModel
     {
         return new SearchQueryDto()
         {
-            To = To,
-            From = From,
+            To = To.IATACode,
+            From = From.IATACode,
             Departure = Departure,
             Arrival = Arrival,
             FlightType = FlightTypes[SelectedFlightTypeIndex],

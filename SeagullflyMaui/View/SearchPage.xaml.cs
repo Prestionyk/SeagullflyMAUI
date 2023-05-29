@@ -23,15 +23,11 @@ public partial class SearchPage : ContentPage
 
     private void SfAutocomplete_SelectionChangedFrom(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e)
     {
-        var airport = (Airport)e.CurrentSelection[0];
-        _viewModel.From = airport?.IATACode ?? string.Empty;
         _viewModel.RemoveQueryIfDifferent();
     }
 
     private void SfAutocomplete_SelectionChangedTo(object sender, Syncfusion.Maui.Inputs.SelectionChangedEventArgs e)
     {
-        var airport = (Airport)e.CurrentSelection[0];
-        _viewModel.To = airport?.IATACode ?? string.Empty;
         _viewModel.RemoveQueryIfDifferent();
     }
 
@@ -40,8 +36,8 @@ public partial class SearchPage : ContentPage
         if (((Picker)sender).SelectedItem is SearchQueryDto loadedQuery)
         {
             _viewModel.QueryIsLoading = true;
-            _viewModel.From = loadedQuery.From;
-            _viewModel.To = loadedQuery.To;
+            _viewModel.From = _viewModel.Airports.Where(a => a.IATACode == loadedQuery.From).FirstOrDefault();
+            _viewModel.To = _viewModel.Airports.Where(a => a.IATACode == loadedQuery.To).FirstOrDefault();
             _viewModel.Arrival = loadedQuery.Arrival;
             _viewModel.Departure = loadedQuery.Departure;
 
